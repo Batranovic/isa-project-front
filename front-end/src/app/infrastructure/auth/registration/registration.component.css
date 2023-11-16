@@ -1,0 +1,56 @@
+/* registration.component.css */
+
+.registration-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f4; /* Light background color */
+    padding: 20px; /* Add padding for better spacing */
+    width: auto;
+  }
+  
+  .registration-form {
+    border: 1px solid #ddd;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Add padding for better spacing */
+    
+  }
+  
+  .registration-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .register-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db; /* Button color */
+    color: #fff; /* Text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .register-button:hover {
+    background-color: #2980b9; /* Hover color */
+  }
+  .invalid-field {
+    border: 2px solid #ff0000; /* Red border for invalid fields */
+  }
+  .registration-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #3498db; /* Choose a color that fits your design */
+    margin-top: -100px;
+  }

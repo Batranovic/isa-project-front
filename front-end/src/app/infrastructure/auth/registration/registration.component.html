@@ -1,1 +1,19 @@
-<p>registration works!</p>
+<div class="registration-container">
+    <h2 class="registration-title">Join Us Today</h2>
+    <form [formGroup]="registrationForm" (ngSubmit)="register()" class="registration-form">
+      <div>
+        <input matInput formControlName="name" type="text" placeholder="Name*" [ngStyle]="{'border-color': submitted && registrationForm.get('name')?.invalid ? 'red' : ''}" />
+            <input matInput formControlName="surname" type="text" placeholder="Surname*" [ngStyle]="{'border-color': submitted && registrationForm.get('surname')?.invalid ? 'red' : ''}" />
+            <input matInput formControlName="email" type="text" placeholder="Email*"[ngStyle]="{'border-color': submitted && registrationForm.get('email')?.invalid ? 'red' : ''}" />
+            <input matInput formControlName="password" type="password" placeholder="Password*" [ngStyle]="{'border-color': submitted && registrationForm.get('password')?.invalid ? 'red' : ''}" />
+            <input matInput formControlName="confirmPassword" type="password" placeholder="Confirm Password*" [ngStyle]="{'border-color': (submitted && registrationForm.get('confirmPassword')?.invalid) || (registrationForm.get('confirmPassword')?.value !== registrationForm.get('password')?.value) ? 'red' : ''}" />
+            <input matInput formControlName="city" type="text" placeholder="City*" [ngStyle]="{'border-color': submitted && registrationForm.get('city')?.invalid ? 'red' : ''}" />
+            <input matInput formControlName="country" type="text" placeholder="Country*" [ngStyle]="{'border-color': submitted && registrationForm.get('country')?.invalid ? 'red' : ''}" />
+            <input matInput formControlName="phoneNumber" type="text" placeholder="Phone Number*" [ngStyle]="{'border-color': submitted && registrationForm.get('phoneNumber')?.invalid ? 'red' : ''}" />
+            <input matInput formControlName="companyInformation" type="text" placeholder="Company Information*" [ngStyle]="{'border-color': submitted && registrationForm.get('companyInformation')?.invalid ? 'red' : ''}" />
+            <input matInput formControlName="profession" type="text" placeholder="Profession*" [ngStyle]="{'border-color': submitted && registrationForm.get('profession')?.invalid ? 'red' : ''}" />
+            <button color="primary" type="submit" mat-raised-button class="register-button">Register</button>
+      </div>
+    </form>
+  </div>
+  
