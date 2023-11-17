@@ -1,0 +1,8 @@
+<div class="company-container">
+    <div class="company-card" *ngFor="let company of companies">
+      <h2>{{ company.name }}</h2>
+      <p class="company-address">{{ company.address }}</p>
+      <p class="company-description">{{ company.description }}</p>
+      <p class="company-average-grade">Average Grade: {{ company.averageGrade }}</p>
+    </div>
+  </div>

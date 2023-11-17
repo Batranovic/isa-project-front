@@ -13,4 +13,7 @@ export class NavBarComponent {
   onRegister() {
     this.router.navigate(['/register']);
   }
+  viewCompany() {
+    this.router.navigate(['/view-company'])
+  }
 }
