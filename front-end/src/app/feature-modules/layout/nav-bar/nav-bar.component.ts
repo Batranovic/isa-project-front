@@ -16,4 +16,7 @@ export class NavBarComponent {
   viewCompany() {
     this.router.navigate(['/view-company'])
   }
+  viewEquipment(){
+    this.router.navigate(['/view-equipment']);
+  }
 }

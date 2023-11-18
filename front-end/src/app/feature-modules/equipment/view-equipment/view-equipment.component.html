@@ -1,1 +1,8 @@
-<p>view-equipment works!</p>
+<div class="equipment-container">
+    <div class="equipment-card" *ngFor="let equipment of equipments">
+      <h2>{{ equipment.name }}</h2>
+      <p class="equipment-type">{{ equipment.equipmentType }}</p>
+      <p class="equipment-description">{{ equipment.description }}</p>
+      <p class="equipment-quantity">Quantity: {{ equipment.quantity }}</p>
+    </div>
+  </div>

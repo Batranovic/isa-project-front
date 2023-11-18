@@ -39,6 +39,16 @@
     cursor: pointer;
     margin-left: -220px;
 }
+.viewEquipmentButton{
+    text-decoration: none;
+    color: #2980b9;
+    font-weight: 350;
+    padding: 0 1vw;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: -235px;
+}
 /* Active Link Styles */
 .active-link {
     display: none;
