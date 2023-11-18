@@ -1,0 +1,48 @@
+<div>
+  <input
+    [(ngModel)]="searchInputs.name"
+    type="text"
+    name=""
+    id=""
+    placeholder="Search by name"
+    (ngModelChange)="getFilteredCompanies()"
+  />
+  <input
+    [(ngModel)]="searchInputs.address"
+    type="text"
+    name=""
+    id=""
+    placeholder="Search by address"
+    (ngModelChange)="getFilteredCompanies()"
+  />
+</div>
+<div *ngIf="filterActive">
+  <h5>Filter by average grade:</h5>
+  <input
+    [(ngModel)]="filterInputs.averageGrade1"
+    type="number"
+    name=""
+    id=""
+    placeholder="Filter by average grade"
+    (ngModelChange)="filterResults()"
+  />
+  <input
+  [(ngModel)]="filterInputs.averageGrade2"
+  type="number"
+  name=""
+  id=""
+  placeholder="Filter by average grade"
+  (ngModelChange)="filterResults()"
+/>
+<!-- <button   (click)="filterResults()">Filter Results</button> -->
+</div>
+<div class="company-container">
+  <div class="company-card" *ngFor="let company of newCompanies">
+    <h2>{{ company.name }}</h2>
+    <p class="company-address">{{ company.address }}</p>
+    <p class="company-description">{{ company.description }}</p>
+    <p class="company-average-grade">
+      Average Grade: {{ company.averageGrade }}
+    </p>
+  </div>
+</div>

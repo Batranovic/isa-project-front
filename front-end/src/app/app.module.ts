@@ -8,13 +8,13 @@ import { LayoutModule } from './feature-modules/layout/layout.module';
 import { AppRoutingModule } from './infrastructure/routing/app-routing.module';
 import { CompanyModule } from './feature-modules/company/company.module';
 import { EquipmentModule } from './feature-modules/equipment/equipment.module';
-import { ViewProfileComponent } from './feature-modules/layout/view-profile/view-profile.component';
+import { ViewProfileComponent } from './feature-modules/view-profile/view-profile.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ViewProfileComponent,
+    ViewProfileComponent
   ],
   imports: [
     BrowserModule,

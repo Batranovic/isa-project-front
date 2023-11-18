@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../company.service';
 import { Company } from '../model/company.model';
+import { SearchCompany } from '../model/search-company.model';
 
 @Component({
   selector: 'app-view-company',
@@ -27,4 +28,5 @@ export class ViewCompanyComponent implements OnInit{
       }
     );
   }
+
 }
