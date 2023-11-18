@@ -24,10 +24,7 @@
     transform: scale(1.05);
   }
   
-  .company-card h2 {
-    color: #3498db;
-    margin-bottom: 8px;
-  }
+  
   
   .equipment-type {
     color: #555;
@@ -35,7 +32,6 @@
   }
   
   .equipment-description {
-    font-style: italic;
     color: #777;
     margin-bottom: 8px;
   }
