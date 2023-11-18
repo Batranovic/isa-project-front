@@ -5,6 +5,7 @@ import { RegistrationComponent } from '../auth/registration/registration.compone
 import { ViewCompanyComponent } from 'src/app/feature-modules/company/view-company/view-company.component';
 import { ViewEquipmentComponent } from 'src/app/feature-modules/equipment/view-equipment/view-equipment.component';
 import { ActivationLinkComponent } from '../auth/activation-link/activation-link.component';
+import { ViewProfileComponent } from 'src/app/feature-modules/layout/view-profile/view-profile.component';
 
 const routes: Routes = [
   {path:'home', component: HomeComponent},
@@ -12,6 +13,9 @@ const routes: Routes = [
   {path:'view-company', component: ViewCompanyComponent},
   {path:'view-equipment', component: ViewEquipmentComponent},
   {path:'activation-link/:id', component: ActivationLinkComponent},
+  {path:'view-profile', component: ViewProfileComponent},
+
+
 ];
 
 @NgModule({

@@ -1,0 +1,13 @@
+<div class="wrapper">
+    <div class="profile" *ngIf="myProfile">
+        <input [(ngModel)]="myProfile.name" type="text" name="" id="" value={{myProfile.name}}>
+        <input [(ngModel)]="myProfile.surname"  type="text" name="" id="" value={{myProfile.surname}}>
+        <input [(ngModel)]="myProfile.passwrod"  type="text" name="" id="" value={{myProfile.passwrod}}>
+        <input [(ngModel)]="myProfile.city"  type="text" name="" id="" value={{myProfile.city}}>
+        <input [(ngModel)]="myProfile.country"  type="text" name="" id="" value={{myProfile.country}}>
+        <input [(ngModel)]="myProfile.phoneNumber"  type="text" name="" id="" value={{myProfile.phoneNumber}}>
+        <input [(ngModel)]="myProfile.profession"  type="text" name="" id="" value={{myProfile.profession}}>
+        <input [(ngModel)]="myProfile.companyInformation"  type="text" name="" id="" value={{myProfile.companyInformation}}>
+        <button (click)="updateProfile()">Update profile</button>
+    </div>
+</div>
