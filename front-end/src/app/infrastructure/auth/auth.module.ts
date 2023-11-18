@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegistrationComponent } from './registration/registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ActivationLinkComponent } from './activation-link/activation-link.component';
 
 
 
 
 @NgModule({
   declarations: [
-    RegistrationComponent
+    RegistrationComponent,
+    ActivationLinkComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
   ],
   exports: [
-    RegistrationComponent
+    RegistrationComponent,
+    ActivationLinkComponent
   ]
 })
 export class AuthModule { }

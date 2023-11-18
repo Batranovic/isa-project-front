@@ -7,7 +7,6 @@ import { LayoutModule } from './feature-modules/layout/layout.module';
 import { AppRoutingModule } from './infrastructure/routing/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CompanyModule } from './feature-modules/company/company.module';
-import { ViewCompanyComponent } from './feature-modules/company/view-company/view-company.component';
 import { EquipmentModule } from './feature-modules/equipment/equipment.module';
 
 @NgModule({

@@ -8,12 +8,12 @@ import { Observable } from 'rxjs';
 })
 
 export class EquipmentService {
-    private backendUrl = 'http://localhost:8080/api/equipments/all'; 
+    
 
     constructor(private http: HttpClient) {}
   
    
     getEquipmentss(): Observable<any[]> {
-        return this.http.get<any[]>(this.backendUrl);
+        return this.http.get<any[]>('http://localhost:8080/api/equipments/all');
       }
 }

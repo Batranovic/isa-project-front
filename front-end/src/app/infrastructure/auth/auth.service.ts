@@ -13,7 +13,7 @@ export class AuthService {
     constructor(private http: HttpClient) {}
   
     register(registration: Registration): Observable<any> {
-        const url = `${this.backendUrl}`;
+        const url = `${'http://localhost:8080/api/users/create'}`;
         return this.http.post(url, registration).pipe(
           catchError((error: HttpErrorResponse) => {
             console.error('Registration error:', error);
@@ -22,4 +22,8 @@ export class AuthService {
         );
       }
 
+      activateUser(userId: number): Observable<any> {
+        const url = `${'http://localhost:8080/api/users'}/activate/${userId}`;
+        return this.http.post(url, {});
+    }
 }

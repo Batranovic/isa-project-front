@@ -8,5 +8,6 @@ export interface Registration {
     city: string,
     country: string,
     companyInformation: string,
-    profession: string
+    profession: string,
+    isActive: boolean
 }
