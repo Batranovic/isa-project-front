@@ -8,6 +8,7 @@
     width: auto;
     padding: 1rem;
     border-bottom: 2px solid #fff; /* Add a white border at the bottom */
+    height: 35px;
 }
   
 
@@ -28,6 +29,9 @@
     border-radius: 4px;
     cursor: pointer;
     margin-left: 1380px; /* Move the button to the right */
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 25px;
 }
 .viewComapnyButton {
     text-decoration: none;
@@ -38,6 +42,9 @@
     border-radius: 4px;
     cursor: pointer;
     margin-left: -220px;
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 25px;
 }
 .viewEquipmentButton{
     text-decoration: none;
@@ -48,8 +55,17 @@
     border-radius: 4px;
     cursor: pointer;
     margin-left: -235px;
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 25px;
 }
 /* Active Link Styles */
 .active-link {
     display: none;
+}
+
+.registerButton:hover,
+.viewComapnyButton:hover,
+.viewEquipmentButton:hover {
+    transform: scale(1.1); /* Enlarge the button on hover */
 }
