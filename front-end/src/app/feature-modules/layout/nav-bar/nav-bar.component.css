@@ -16,8 +16,9 @@
 /* Right Section Styles */
 .navbar-right {
     display: flex;
-    align-items: center;
-    font-weight: 350;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 1em;
 }
 
 .registerButton {
@@ -28,10 +29,6 @@
     border: 1px solid #fff;
     border-radius: 4px;
     cursor: pointer;
-    margin-left: 1380px; /* Move the button to the right */
-    cursor: pointer;
-    transition: all 0.3s;
-    height: 25px;
 }
 .viewComapnyButton {
     text-decoration: none;
@@ -41,10 +38,6 @@
     border: 1px solid #fff;
     border-radius: 4px;
     cursor: pointer;
-    margin-left: -220px;
-    cursor: pointer;
-    transition: all 0.3s;
-    height: 25px;
 }
 .viewEquipmentButton{
     text-decoration: none;
@@ -54,10 +47,6 @@
     border: 1px solid #fff;
     border-radius: 4px;
     cursor: pointer;
-    margin-left: -235px;
-    cursor: pointer;
-    transition: all 0.3s;
-    height: 25px;
 }
 /* Active Link Styles */
 .active-link {
