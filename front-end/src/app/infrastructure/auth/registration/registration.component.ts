@@ -1,4 +1,3 @@
-// registration.component.ts
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,7 +20,7 @@ export class RegistrationComponent {
   registrationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, this.emailValidator]),
     password: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
@@ -61,4 +60,16 @@ export class RegistrationComponent {
         });
     }
   }
+
+  // Custom email validator function
+emailValidator(control: FormControl): { [key: string]: boolean } | null {
+  const email = control.value as string;
+
+  if (!email || email.indexOf('@') === -1 || !email.endsWith('@gmail.com')) {
+    return { invalidEmail: true };
+  }
+
+  return null;
+}
+
 }

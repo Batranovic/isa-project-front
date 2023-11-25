@@ -5,7 +5,7 @@ export interface Profile {
     country: number;
     email: number;
     name: number;
-    passwrod: number;
+    password: number;
     phoneNumber: number;
     profession: number;
     surname: number;
