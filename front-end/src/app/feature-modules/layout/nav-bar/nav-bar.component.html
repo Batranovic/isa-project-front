@@ -1,7 +1,12 @@
 <div class="navbar">
     <div class="navbar-right">
-      <button class="registerButton" (click)="onRegister()">Register</button>
       <button class="viewComapnyButton" (click)="viewCompany()">Companies</button>
       <button class="viewEquipmentButton" (click)="viewEquipment()">Equipment</button>
+      <button *ngIf="!hasSignedIn()" mat-raised-button (click)="logIn()">
+        <span>Login</span>
+      </button>
+      <button *ngIf="hasSignedIn()" (click)="logout()"
+            mat-button>Log out
+            </button>
     </div>
   </div>

@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegistrationComponent } from './registration/registration.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivationLinkComponent } from './activation-link/activation-link.component';
+import { LoginComponent } from './login/login.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -10,16 +12,19 @@ import { ActivationLinkComponent } from './activation-link/activation-link.compo
 @NgModule({
   declarations: [
     RegistrationComponent,
-    ActivationLinkComponent
+    ActivationLinkComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    ReactiveFormsModule,
+    RouterModule,
   ],
   exports: [
     RegistrationComponent,
-    ActivationLinkComponent
+    ActivationLinkComponent,
+    LoginComponent
   ]
 })
 export class AuthModule { }

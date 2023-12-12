@@ -1,0 +1,12 @@
+<div class="registration-container">
+    <h2 class="registration-title">Log in</h2>
+    <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form" class="registration-form">
+            <input formControlName="email" matInput placeholder="email" required>
+
+            <input formControlName="password" matInput placeholder="password" required type="password">
+        <button [disabled]="!loginForm.form.valid" color="primary" mat-raised-button
+            type="submit" mat-raised-button class="register-button">Login</button>
+        <p class="center-text">Don't have an account? <a href="javascript:void(0);" (click)="navigateToRegister()">Register here</a>.</p>
+    </form>
+</div>

@@ -10,7 +10,10 @@ import { CompanyModule } from './feature-modules/company/company.module';
 import { EquipmentModule } from './feature-modules/equipment/equipment.module';
 import { ViewProfileComponent } from './feature-modules/view-profile/view-profile.component';
 import { FormsModule } from '@angular/forms';
-
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { AngularMaterialModule } from './angular-material/angular-material.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +27,11 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     CompanyModule,
     EquipmentModule,
-    FormsModule
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    AngularMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
