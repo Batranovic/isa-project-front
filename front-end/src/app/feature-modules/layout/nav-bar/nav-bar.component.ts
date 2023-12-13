@@ -1,17 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { UserService } from 'src/app/infrastructure/auth/user.service';
+import { User } from 'src/app/infrastructure/model/user.model';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
+  user: User | undefined;
   constructor(private router: Router, private userService: UserService, private authService: AuthService) {}
 
-
+  ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+      this.user.email = user.email;
+    });
+    
+  }
   viewCompany() {
     this.router.navigate(['/view-company'])
   }
@@ -27,11 +35,8 @@ export class NavBarComponent {
     return !!this.userService.currentUser;
   }
   
-  userName() {
-    const user = this.userService.currentUser;
-    return user.firstName + ' ' + user.lastName;
-  }
-  logout() {
+
+  logout():void {
     this.authService.logout();
   }
 }

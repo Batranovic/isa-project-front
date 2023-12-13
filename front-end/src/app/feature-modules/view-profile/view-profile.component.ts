@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Profile } from 'src/app/infrastructure/model/profile.model';
 import { ProfileService } from 'src/app/infrastructure/service/profile.service';
 
@@ -10,17 +11,25 @@ import { ProfileService } from 'src/app/infrastructure/service/profile.service';
 export class ViewProfileComponent implements OnInit{
 
   public myProfile!: Profile;
-
-  constructor(private profileService:ProfileService){
+  userId : number | undefined;
+  constructor(private profileService:ProfileService, private authService: AuthService){
 
   }
 
-  ngOnInit(){
-    let userId = 1;
-    this.profileService.getProfile(userId).subscribe((profile:Profile)=>{
-      this.myProfile = profile;
-      console.log(this.myProfile)
-    })
+  ngOnInit() {
+    // Subscribe to user$ to get the user information
+    this.authService.user$.subscribe(user => {
+      // Check if user has an id
+      if (user.id) {
+        this.userId = user.id;
+
+        // Now you can use userId to fetch the profile
+        this.profileService.getProfile(this.userId).subscribe((profile: Profile) => {
+          this.myProfile = profile;
+          console.log(this.myProfile);
+        });
+      }
+    });
   }
 
   updateProfile(){

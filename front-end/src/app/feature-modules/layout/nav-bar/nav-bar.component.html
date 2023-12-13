@@ -2,7 +2,7 @@
     <div class="navbar-right">
       <button class="viewComapnyButton" (click)="viewCompany()">Companies</button>
       <button class="viewEquipmentButton" (click)="viewEquipment()">Equipment</button>
-      <button *ngIf="!hasSignedIn()" mat-raised-button (click)="logIn()"><span>Login</span></button>
-      <button *ngIf="hasSignedIn()" (click)="logout()" mat-raised-button>Log out</button>
+      <button *ngIf="user && user.email === ''" mat-raised-button (click)="logIn()"><span>Login</span></button>
+      <button *ngIf="user && user.email !== ''" (click)="logout()" mat-raised-button>Log out</button>
     </div>
   </div>
