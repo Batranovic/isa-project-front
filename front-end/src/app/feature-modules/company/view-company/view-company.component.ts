@@ -3,6 +3,7 @@ import { CompanyService } from '../company.service';
 import { Company } from '../model/company.model';
 import { SearchCompany } from '../model/search-company.model';
 import { FilterInputs } from '../model/filter-inputs.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-company',
@@ -23,7 +24,7 @@ export class ViewCompanyComponent implements OnInit{
   }
   filterActive:Boolean = false;
 
-  constructor(private companyService: CompanyService) {}
+  constructor(private companyService: CompanyService, private router: Router) {}
 
   ngOnInit(): void {
     this.getCompanies();
@@ -49,5 +50,10 @@ export class ViewCompanyComponent implements OnInit{
       this.companies = companies;
       this.newCompanies = companies;
     })
+  }
+
+  onCompanyCardClick(companyId: number): void {
+    // Navigate to the company detail page with the company ID as a parameter
+    this.router.navigate(['/view-single-company', companyId]);
   }
 }

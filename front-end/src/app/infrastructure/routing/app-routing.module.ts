@@ -7,6 +7,7 @@ import { ViewEquipmentComponent } from 'src/app/feature-modules/equipment/view-e
 import { ActivationLinkComponent } from '../auth/activation-link/activation-link.component';
 import { ViewProfileComponent } from 'src/app/feature-modules/view-profile/view-profile.component';
 import { LoginComponent } from '../auth/login/login.component';
+import { ViewSingleCompanyComponent } from 'src/app/feature-modules/company/view-single-company/view-single-company.component';
 
 const routes: Routes = [
   {path:'home', component: HomeComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path:'view-equipment', component: ViewEquipmentComponent},
   {path:'activation-link/:id', component: ActivationLinkComponent},
   {path:'view-profile', component: ViewProfileComponent},
-  {path:'login', component: LoginComponent}
+  {path:'login', component: LoginComponent},
+  {path:'view-single-company/:id', component: ViewSingleCompanyComponent}
 ];
 
 @NgModule({

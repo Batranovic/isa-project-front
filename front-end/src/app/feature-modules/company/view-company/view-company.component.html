@@ -38,7 +38,7 @@
 <!-- <button   (click)="filterResults()">Filter Results</button> -->
 </div>
 <div class="company-container">
-  <div class="company-card" *ngFor="let company of newCompanies">
+  <div class="company-card" *ngFor="let company of newCompanies" (click)="onCompanyCardClick(company.id)">
     <h2>{{ company.name }}</h2>
     <p class="company-address">{{ company.address }}</p>
     <p class="company-description">{{ company.description }}</p>

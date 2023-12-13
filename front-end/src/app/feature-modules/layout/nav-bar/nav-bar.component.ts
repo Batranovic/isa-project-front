@@ -16,10 +16,9 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;
-      this.user.email = user.email;
     });
-    
   }
+  
   viewCompany() {
     this.router.navigate(['/view-company'])
   }

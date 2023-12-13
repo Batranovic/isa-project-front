@@ -1,0 +1,26 @@
+.company-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+  }
+  
+  .company-card {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    position: relative; /* Added this line for positioning */
+  }
+  
+  .company-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #3498db;
+  }
+  
