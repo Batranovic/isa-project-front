@@ -1,8 +1,8 @@
+// app.module.ts
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-
-import { AppComponent } from './app.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { LayoutModule } from './feature-modules/layout/layout.module';
 import { AppRoutingModule } from './infrastructure/routing/app-routing.module';
@@ -14,6 +14,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
+import { AppComponent } from './app.component';
+import { TokenInterceptor } from './infrastructure/auth/interceptor/TokenInterceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +36,13 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
     MatButtonModule,
     AngularMaterialModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
