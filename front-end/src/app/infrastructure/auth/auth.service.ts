@@ -14,7 +14,7 @@ import { User } from '../model/user.model';
 })
 export class AuthService {
 
-   user$ = new BehaviorSubject<User>({email: "", id: 0 });
+   user$ = new BehaviorSubject<User>({email: "", id: 0, roles: [] });
    private access_token: string | null = null; 
 
     constructor(private http: HttpClient, private apiService: ApiService, private router: Router, private userService: UserService) {
@@ -47,9 +47,10 @@ export class AuthService {
       const user: User = {
         id: +jwtHelperService.decodeToken(accessToken).id,
         email: jwtHelperService.decodeToken(accessToken).sub,
+        roles: jwtHelperService.decodeToken(accessToken).roles
       };
   
-      this.user$.next(user);
+      this.user$.next(user); 
     }
 
   
@@ -81,7 +82,7 @@ export class AuthService {
     this.router.navigate(['/home']).then(_ => {
       localStorage.removeItem("jwt");
       this.access_token = null;
-      this.user$.next({email: "", id: 0});
+      this.user$.next({email: "", id: 0, roles: []});
       }
     );
   }
