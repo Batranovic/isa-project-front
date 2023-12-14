@@ -9,7 +9,12 @@
   
   <div *ngIf="equipments && equipments.length > 0" class="equipment-container">
     <div class="equipment-card" *ngFor="let equipment of equipments">
-      <button class="add-button" (click)="handleAddEquipmentClick(equipment)">+</button>
+      <button
+        class="add-button"
+        (click)="equipment.isAdded ? onRemoveClicked(equipment) : onAddClicked(equipment)"
+      >
+        {{ equipment.isAdded ? '-' : '+' }}
+      </button>
   
       <h2 class="company-title">{{ equipment.name }}</h2>
       <p class="equipment-type">{{ equipment.equipmentType }}</p>

@@ -39,7 +39,10 @@ export class ViewSingleCompanyComponent implements OnInit {
       }
     );
   }
-  handleAddEquipmentClick(equipment: Equipment){
-
+  onRemoveClicked(equipment: Equipment){
+    equipment.isAdded = false;
+  }
+  onAddClicked(equipment: Equipment){
+    equipment.isAdded = true;
   }
 }

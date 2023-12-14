@@ -3,4 +3,5 @@ export interface Equipment {
     equipmentType: string,
     description: string,
     quantity: number
+    isAdded?: boolean;
 }
