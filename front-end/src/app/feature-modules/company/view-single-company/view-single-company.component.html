@@ -1,8 +1,20 @@
 <div *ngIf="company" class="company-container">
     <div class="company-card">
-        <h2 class="company-title">{{company.name}}</h2>
-        <p><strong>Address:</strong> {{ company.address }}</p>
-        <p><strong>Description:</strong> {{ company.description }}</p>
-        <p><strong>Average grade:</strong> {{ company.averageGrade }}</p>
+      <h2 class="company-title">{{company.name}}</h2>
+      <p><strong>Address:</strong> {{ company.address }}</p>
+      <p><strong>Description:</strong> {{ company.description }}</p>
+      <p><strong>Average grade:</strong> {{ company.averageGrade }}</p>
     </div>
-</div>
+  </div>
+  
+  <div *ngIf="equipments && equipments.length > 0" class="equipment-container">
+    <div class="equipment-card" *ngFor="let equipment of equipments">
+      <button class="add-button" (click)="handleAddEquipmentClick(equipment)">+</button>
+  
+      <h2 class="company-title">{{ equipment.name }}</h2>
+      <p class="equipment-type">{{ equipment.equipmentType }}</p>
+      <p class="equipment-description">{{ equipment.description }}</p>
+      <p class="equipment-quantity">Quantity: {{ equipment.quantity }}</p>
+    </div>
+  </div>
+  

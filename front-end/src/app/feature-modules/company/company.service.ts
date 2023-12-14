@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchCompany } from './model/search-company.model';
 import { Company } from './model/company.model';
+import { Equipment } from '../equipment/model/equipment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,4 +29,8 @@ export class CompanyService {
 
     return this.http.get<Company>(`http://localhost:8080/api/companies/${companyId}`, { headers });
   }*/
+
+  getEquipmentsForCompany(companyId: number): Observable<any>{
+    return this.http.get<any>(`http://localhost:8080/api/companies/equipments/${companyId}`);
+  }
 }
