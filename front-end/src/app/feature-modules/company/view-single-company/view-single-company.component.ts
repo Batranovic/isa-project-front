@@ -5,6 +5,8 @@ import { CompanyService } from '../company.service';
 import { Equipment } from '../../equipment/model/equipment.model';
 import { Appointment, AppointmentStatus } from '../model/appointment.model';
 import { DatePipe } from '@angular/common';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/model/user.model';
 
 @Component({
   selector: 'app-view-single-company',
@@ -17,7 +19,9 @@ export class ViewSingleCompanyComponent implements OnInit {
   equipments: Equipment[] = [];
   appointments: Appointment[] = [];
   selectedEquipmentId: number | undefined;
-  constructor(private route: ActivatedRoute, private companyService: CompanyService, private datePipe: DatePipe) {}
+  user: User | undefined;
+  
+  constructor(private route: ActivatedRoute, private companyService: CompanyService, private authService: AuthService) {}
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const companyId = +params.get('id')!;
@@ -27,6 +31,10 @@ export class ViewSingleCompanyComponent implements OnInit {
         this.company = company;
         this.getEquipmentsForCompany(companyId);
         this.getAppointmentsForCompany(companyId);
+        
+      });
+      this.authService.user$.subscribe(user => {
+        this.user = user;
       });
     });
   } 
@@ -56,20 +64,23 @@ export class ViewSingleCompanyComponent implements OnInit {
   }
 
   reserveButtonClicked(appointmentId: number): void {
+    const userId = this.authService.user$.value.id!; 
+
     if (this.selectedEquipmentId !== undefined) {
-      this.companyService.createReservation(appointmentId, this.selectedEquipmentId).subscribe(
-        (response) => {
-          console.log('Reservation created successfully:', response);
-         
-        },
-        (error) => {
-          console.error('Error creating reservation:', error);
-        }
-      );
+        this.companyService.createReservation(appointmentId, this.selectedEquipmentId, userId).subscribe(
+            (response) => {
+                console.log('Reservation created successfully:', response);
+            },
+            (error) => {
+                console.error('Error creating reservation:', error);
+            }
+        );
     } else {
-      console.error('Selected equipment ID is undefined.');
+        console.error('Selected equipment ID is undefined.');
+        // You might want to handle this case, e.g., show an error message or disable the button.
     }
-  }
+}
+
 
   onRemoveClicked(equipment: Equipment){
     equipment.isAdded = false;
