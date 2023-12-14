@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { AppComponent } from './app.component';
 import { TokenInterceptor } from './infrastructure/auth/interceptor/TokenInterceptor';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { TokenInterceptor } from './infrastructure/auth/interceptor/TokenInterce
       useClass: TokenInterceptor,
       multi: true,
     },
+    DatePipe,
   ],
   bootstrap: [AppComponent]
 })

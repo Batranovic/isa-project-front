@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { SearchCompany } from './model/search-company.model';
 import { Company } from './model/company.model';
 import { Equipment } from '../equipment/model/equipment.model';
+import { Reservation } from './model/reservation.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,5 +33,12 @@ export class CompanyService {
 
   getEquipmentsForCompany(companyId: number): Observable<any>{
     return this.http.get<any>(`http://localhost:8080/api/companies/equipments/${companyId}`);
+  }
+  getAppointmentsForCompany(companyId: number): Observable<any>{
+    return this.http.get<any>(`http://localhost:8080/api/companies/appointments/${companyId}`);
+  }
+
+  createReservation(appointmentId: number, equipmentId: number): Observable<Reservation> {
+    return this.http.post<Reservation>(`http://localhost:8080/api/reservations/create/${appointmentId}/${equipmentId}`, {});
   }
 }

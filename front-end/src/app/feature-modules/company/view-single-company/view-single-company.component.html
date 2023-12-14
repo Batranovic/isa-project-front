@@ -22,4 +22,30 @@
       <p class="equipment-quantity">Quantity: {{ equipment.quantity }}</p>
     </div>
   </div>
+
+  <div *ngIf="appointments && appointments.length > 0" class="appointment-container">
+    <table class="appointment-table">
+      <thead>
+        <tr>
+          <th>Date and Time</th>
+          <th>Duration</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of appointments">
+            <td>{{ appointment.dateAndTime }}</td>
+            <td>{{ appointment.duration }}</td>
+            <td>{{ appointment.status }}</td> 
+            <button 
+            mat-button-raised
+            (click)="reserveButtonClicked(appointment.id)"
+        >
+            Reserve
+        </button>                  
+        </tr>
+      </tbody>
+    </table>
+  </div>
   
