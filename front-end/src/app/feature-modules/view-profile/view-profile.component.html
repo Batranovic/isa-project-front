@@ -1,13 +1,38 @@
-<div class="wrapper">
-    <div class="profile" *ngIf="myProfile">
-        <input [(ngModel)]="myProfile.name" type="text" name="" id="" value={{myProfile.name}}>
-        <input [(ngModel)]="myProfile.surname"  type="text" name="" id="" value={{myProfile.surname}}>
-        <input [(ngModel)]="myProfile.passwrod"  type="text" name="" id="" value={{myProfile.passwrod}}>
-        <input [(ngModel)]="myProfile.city"  type="text" name="" id="" value={{myProfile.city}}>
-        <input [(ngModel)]="myProfile.country"  type="text" name="" id="" value={{myProfile.country}}>
-        <input [(ngModel)]="myProfile.phoneNumber"  type="text" name="" id="" value={{myProfile.phoneNumber}}>
-        <input [(ngModel)]="myProfile.profession"  type="text" name="" id="" value={{myProfile.profession}}>
-        <input [(ngModel)]="myProfile.companyInformation"  type="text" name="" id="" value={{myProfile.companyInformation}}>
-        <button (click)="updateProfile()">Update profile</button>
+<div class="registration-container">
+    <h2 class="registration-title">Update profile</h2>
+    <div class="profile" *ngIf="myProfile" class="registration-form">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input [(ngModel)]="myProfile.name" type="text" id="name" name="name" value="{{myProfile.name}}">
+        </div>
+        <div class="form-group">
+            <label for="surname">Surname:</label>
+            <input [(ngModel)]="myProfile.surname" type="text" id="surname" name="surname" value="{{myProfile.surname}}">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input [(ngModel)]="myProfile.passwrod" type="password" id="password" name="password" value="{{myProfile.passwrod}}">
+        </div>
+        <div class="form-group">
+            <label for="city">City:</label>
+            <input [(ngModel)]="myProfile.city" type="text" id="city" name="city" value="{{myProfile.city}}">
+        </div>
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <input [(ngModel)]="myProfile.country" type="text" id="country" name="country" value="{{myProfile.country}}">
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone number:</label>
+            <input [(ngModel)]="myProfile.phoneNumber" type="text" id="phoneNumber" name="phoneNumber" value="{{myProfile.phoneNumber}}">
+        </div>
+        <div class="form-group">
+            <label for="profession">Profession:</label>
+            <input [(ngModel)]="myProfile.profession" type="text" id="profession" name="profession" value="{{myProfile.profession}}">
+        </div>
+        <div class="form-group">
+            <label for="companyInformation">Company info:</label>
+            <input [(ngModel)]="myProfile.companyInformation" type="text" id="companyInformation" name="companyInformation" value="{{myProfile.companyInformation}}">
+        </div>
+        <button (click)="updateProfile()" class="register-button">Update profile</button>
     </div>
 </div>

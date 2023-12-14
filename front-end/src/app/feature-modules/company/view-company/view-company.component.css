@@ -6,6 +6,10 @@
     justify-content: space-around;
     padding: 20px;
   }
+
+  .h5 {
+    color: #2980b9;
+  }
   
   .company-card {
     width: 300px;
@@ -23,8 +27,6 @@
   .company-card:hover {
     transform: scale(1.05);
   }
-  
-  
   
   .company-address {
     color: #555;
