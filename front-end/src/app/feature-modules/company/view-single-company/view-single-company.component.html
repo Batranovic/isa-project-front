@@ -31,6 +31,7 @@
           <th>Duration</th>
           <th>Status</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -38,6 +39,7 @@
             <td>{{ appointment.dateAndTime }}</td>
             <td>{{ appointment.duration }}</td>
             <td>{{ appointment.status }}</td> 
+            <td>{{ appointment.companyAdmin.user.email}}</td>
             <button 
             mat-button-raised
             (click)="reserveButtonClicked(appointment.id)"

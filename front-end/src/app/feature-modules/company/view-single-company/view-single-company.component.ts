@@ -26,7 +26,6 @@ export class ViewSingleCompanyComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const companyId = +params.get('id')!;
 
-      // Fetch company details using the company service
       this.companyService.getCompanyDetails(companyId).subscribe((company) => {
         this.company = company;
         this.getEquipmentsForCompany(companyId);
@@ -70,6 +69,7 @@ export class ViewSingleCompanyComponent implements OnInit {
         this.companyService.createReservation(appointmentId, this.selectedEquipmentId, userId).subscribe(
             (response) => {
                 console.log('Reservation created successfully:', response);
+                alert("Successfuly reserved!")
             },
             (error) => {
                 console.error('Error creating reservation:', error);
@@ -77,7 +77,7 @@ export class ViewSingleCompanyComponent implements OnInit {
         );
     } else {
         console.error('Selected equipment ID is undefined.');
-        // You might want to handle this case, e.g., show an error message or disable the button.
+       
     }
 }
 
