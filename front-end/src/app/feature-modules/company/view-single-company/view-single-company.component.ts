@@ -18,7 +18,7 @@ export class ViewSingleCompanyComponent implements OnInit {
   company: Company | undefined;
   equipments: Equipment[] = [];
   appointments: Appointment[] = [];
-  selectedEquipmentId: number | undefined;
+  selectedEquipmentIds: number[] = [];
   user: User | undefined;
   
   constructor(private route: ActivatedRoute, private companyService: CompanyService, private authService: AuthService) {}
@@ -62,31 +62,39 @@ export class ViewSingleCompanyComponent implements OnInit {
     );
   }
 
-  reserveButtonClicked(appointmentId: number): void {
-    const userId = this.authService.user$.value.id!; 
+  // Your Angular component
 
-    if (this.selectedEquipmentId !== undefined) {
-        this.companyService.createReservation(appointmentId, this.selectedEquipmentId, userId).subscribe(
-            (response) => {
-                console.log('Reservation created successfully:', response);
-                alert("Successfuly reserved!")
-            },
-            (error) => {
-                console.error('Error creating reservation:', error);
-            }
-        );
-    } else {
-        console.error('Selected equipment ID is undefined.');
-       
-    }
+reserveButtonClicked(appointmentId: number): void {
+  const userId = this.authService.user$.value.id!;
+
+  if (this.selectedEquipmentIds.length > 0) {
+    this.companyService.createReservation(appointmentId, this.selectedEquipmentIds, userId).subscribe({
+      next: () => {
+        console.log('Reservation created successfully:');
+        alert('Successfully reserved!');
+      },
+      error: (error) =>{
+        console.error('Error creating reservation:', error);
+        alert('Unable to make reservation');
+      }
+  });
+  }
 }
 
 
-  onRemoveClicked(equipment: Equipment){
-    equipment.isAdded = false;
+
+
+
+onAddRemoveClicked(equipment: Equipment) {
+  equipment.isAdded = !equipment.isAdded;
+
+  const index = this.selectedEquipmentIds.indexOf(equipment.id);
+
+  if (equipment.isAdded && index === -1) {
+    this.selectedEquipmentIds.push(equipment.id);
+  } else if (!equipment.isAdded && index !== -1) {
+    this.selectedEquipmentIds.splice(index, 1);
   }
-  onAddClicked(equipment: Equipment) {
-    equipment.isAdded = true;
-    this.selectedEquipmentId = equipment.id; 
-  }
+}
+
 }

@@ -9,12 +9,13 @@
   
   <div *ngIf="equipments && equipments.length > 0" class="equipment-container">
     <div class="equipment-card" *ngFor="let equipment of equipments">
-      <button *ngIf="user && user.roles.includes('ROLE_USER')"
+        <button *ngIf="user && user.roles.includes('ROLE_USER')"
         class="add-button"
-        (click)="equipment.isAdded ? onRemoveClicked(equipment) : onAddClicked(equipment)"
+        (click)="onAddRemoveClicked(equipment)"
       >
-        {{ equipment.isAdded ? '-' : '+' }}
+        {{ equipment.isAdded ? 'Remove' : 'Add' }}
       </button>
+      
   
       <h2 class="company-title">{{ equipment.name }}</h2>
       <p class="equipment-type">{{ equipment.equipmentType }}</p>

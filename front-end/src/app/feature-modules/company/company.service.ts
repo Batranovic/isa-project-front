@@ -38,7 +38,10 @@ export class CompanyService {
     return this.http.get<any>(`http://localhost:8080/api/companies/appointments/${companyId}`);
   }
 
-  createReservation(appointmentId: number, equipmentId: number, userId: number): Observable<Reservation> {
-    return this.http.post<Reservation>(`http://localhost:8080/api/reservations/create/${appointmentId}/${equipmentId}/${userId}`, {});
+  createReservation(appointmentId: number, equipmentIds: number[], userId: number): Observable<any> {
+    return this.http.post<any>(`http://localhost:8080/api/reservations/create/${appointmentId}/${userId}`,  equipmentIds);
   }
+
+
+  
 }
