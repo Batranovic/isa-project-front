@@ -9,7 +9,7 @@ import { AppRoutingModule } from './infrastructure/routing/app-routing.module';
 import { CompanyModule } from './feature-modules/company/company.module';
 import { EquipmentModule } from './feature-modules/equipment/equipment.module';
 import { ViewProfileComponent } from './feature-modules/view-profile/view-profile.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -37,7 +37,8 @@ import { NewDatesComponent } from './feature-modules/new-dates/new-dates.compone
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

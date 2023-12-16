@@ -36,3 +36,21 @@
         <button (click)="updateProfile()" class="register-button">Update profile</button>
     </div>
 </div>
+
+<div  class="appointment-container">
+    <h2 class="company-title">Your reservations</h2>
+    <table class="appointment-table">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Date and Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of reservations">
+            <td>{{ reservation.status}}</td>     
+            <td>{{ reservation.appointment.dateAndTime}}</td>       
+        </tr>
+      </tbody>
+    </table>
+  </div>

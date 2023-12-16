@@ -1,10 +1,44 @@
 <div class="new-date-container">
     <h2 class="new-date-title">Available dates</h2>
     <label for="meeting-time">Choose a time for your appointment:</label>
-    <input type="datetime-local"
-                id="meeting-time"
-                name="meeting-time"
-                value="2023-12-15T19:30"
-                min="2023-12-15T80:00"
-                max="2023-12-15T16:00"> 
+    <form [formGroup]="dateForm" (ngSubmit)="getAppointmentsForCompany()">
+        <input type="date"
+               id="meeting-time"
+               name="meeting-time"
+               formControlName="date"
+               value="2023-12-15T19:30"
+               min="2023-12-15T08:00"
+               max="2024-12-15T16:00">
+
+            
+        <button type="submit" >pronadji termine</button>
+    </form>
+
+    <div  *ngIf="appointments && appointments.length > 0 && user && user.roles.includes('ROLE_USER')" class="appointment-container">
+        <table class="appointment-table">
+          <thead>
+            <tr>
+              <th>Date and Time</th>
+              <th>Duration</th>
+              <th>Status</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let appointment of appointments">
+                <td>{{ appointment.dateAndTime }}</td>
+                <td>{{ appointment.duration }}</td>
+                <td>{{ appointment.status }}</td> 
+                <button 
+                mat-button-raised
+                (click)="reserveButtonClicked(appointment.id)"
+            >
+                Reserve
+            </button>                  
+            </tr>
+          </tbody>
+        </table>                
+      </div>
+
 </div>

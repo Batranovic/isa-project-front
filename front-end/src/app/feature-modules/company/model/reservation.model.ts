@@ -4,7 +4,6 @@ import { Appointment } from "./appointment.model";
 export interface Reservation {
     id: number,
     status: ReservationStatus,
-    equipment: Equipment[],
     appointment: Appointment
 
 }

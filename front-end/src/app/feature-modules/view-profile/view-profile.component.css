@@ -64,3 +64,29 @@
     color: #3498db;
     margin-top: -100px;
   }
+  .appointment-container {
+    text-align: center;
+    margin-top: 20px; /* Add margin for separation */
+  }
+  
+  .appointment-table {
+    width: 60%; /* Adjust the width as needed */
+    border-collapse: collapse;
+    margin: 0 auto; /* Center the table */
+  }
+  
+  .appointment-table th, .appointment-table td {
+    border: 1px solid #ddd; /* Add borders */
+    padding: 8px;
+  }
+  
+  .appointment-table th {
+    background-color: #3498db; /* Header background color */
+    color: #fff; /* Header text color */
+  }
+  .company-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #3498db;
+  }
