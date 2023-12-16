@@ -34,18 +34,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let appointment of appointments">
-            <td>{{ appointment.dateAndTime }}</td>
-            <td>{{ appointment.duration }}</td>
-            <td>{{ appointment.status }}</td> 
-            <button 
-            mat-button-raised
-            (click)="reserveButtonClicked(appointment.id)"
-        >
-            Reserve
-        </button>                  
+          <tr *ngFor="let appointment of appointments">
+              <td>{{ appointment.dateAndTime }}</td>
+              <td>{{ appointment.duration }}</td>
+              <td>{{ appointment.status }}</td> 
+              <button 
+              mat-button-raised
+              (click)="reserveButtonClicked(appointment.id)"
+          >
+              Reserve
+          </button> 
         </tr>
       </tbody>
     </table>
+    <button mat-button-raised class="newDatesButton" (click)="newDatesButton()">New dates</button>                  
   </div>
+
   

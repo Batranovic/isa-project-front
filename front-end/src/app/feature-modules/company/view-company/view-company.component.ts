@@ -31,7 +31,7 @@ export class ViewCompanyComponent implements OnInit{
   }
   filterResults(){
     this.newCompanies = this.companies.filter((company:Company)=>{
-       return (this.filterInputs.averageGrade1 <= company.averageGrade) && (company.averageGrade <= this.filterInputs.averageGrade2)
+       return (this.filterInputs.averageGrade1 <= company.averageGrade) && (company.averageGrade <= this.filterInputs.averageGrade2);
     })
   }
 

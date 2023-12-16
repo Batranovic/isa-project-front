@@ -67,12 +67,14 @@
 .appointment-container {
   text-align: center;
   margin-top: 20px; /* Add margin for separation */
+  display: flex;
+  margin-bottom: 5em;
 }
 
 .appointment-table {
   width: 60%; /* Adjust the width as needed */
   border-collapse: collapse;
-  margin: 0 auto; /* Center the table */
+  margin-left: 10em; /* Center the table */
 }
 
 .appointment-table th, .appointment-table td {
@@ -85,3 +87,20 @@
   color: #fff; /* Header text color */
 }
 
+.newDatesButton{
+  text-decoration: none;
+  color: #2980b9;
+  font-weight: 350;
+  padding: 0 1vw;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid;
+  height: 2em;
+  margin-left: 3em;
+  margin-top: 3em;
+  }
+
+
+.newDatesButton:hover {
+  transform: scale(1.1);
+}

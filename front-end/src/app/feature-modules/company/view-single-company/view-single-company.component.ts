@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Company } from '../model/company.model';
 import { CompanyService } from '../company.service';
 import { Equipment } from '../../equipment/model/equipment.model';
@@ -21,7 +21,7 @@ export class ViewSingleCompanyComponent implements OnInit {
   selectedEquipmentId: number | undefined;
   user: User | undefined;
   
-  constructor(private route: ActivatedRoute, private companyService: CompanyService, private authService: AuthService) {}
+  constructor(private route: ActivatedRoute, private companyService: CompanyService, private authService: AuthService, private router: Router) {}
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const companyId = +params.get('id')!;
@@ -62,6 +62,9 @@ export class ViewSingleCompanyComponent implements OnInit {
       }
     );
   }
+  newDatesButton(): void {
+    this.router.navigate(['/new-dates']);
+  }
 
   reserveButtonClicked(appointmentId: number): void {
     const userId = this.authService.user$.value.id!; 
@@ -80,7 +83,6 @@ export class ViewSingleCompanyComponent implements OnInit {
         // You might want to handle this case, e.g., show an error message or disable the button.
     }
 }
-
 
   onRemoveClicked(equipment: Equipment){
     equipment.isAdded = false;

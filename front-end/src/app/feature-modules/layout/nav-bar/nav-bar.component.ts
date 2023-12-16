@@ -25,6 +25,9 @@ export class NavBarComponent implements OnInit {
   viewEquipment(){
     this.router.navigate(['/view-equipment']);
   }
+  viewProfile(){
+    this.router.navigate(['/view-profile']);
+  }
   logIn(){
     this.router.navigate(['/login']);
   }

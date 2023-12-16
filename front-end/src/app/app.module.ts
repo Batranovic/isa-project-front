@@ -17,11 +17,13 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { AppComponent } from './app.component';
 import { TokenInterceptor } from './infrastructure/auth/interceptor/TokenInterceptor';
 import { DatePipe } from '@angular/common';
+import { NewDatesComponent } from './feature-modules/new-dates/new-dates.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ViewProfileComponent
+    ViewProfileComponent,
+    NewDatesComponent
   ],
   imports: [
     BrowserModule,
