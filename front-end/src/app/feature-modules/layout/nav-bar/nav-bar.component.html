@@ -4,7 +4,7 @@
       <button class="viewEquipmentButton" (click)="viewEquipment()">Equipment</button>
       <button *ngIf="user && user.email === ''" mat-raised-button (click)="logIn()"><span>Login</span></button>
       <button *ngIf="user && user.email !== ''" (click)="logout()" mat-raised-button>Log out</button>
-      <button class="viewProfileButton" (click)="viewProfile()">Profile</button>
+      <button *ngIf="user && user.roles.includes('ROLE_USER')" class="viewProfileButton" (click)="viewProfile()">Profile</button>
     </div>
     <!--*ngIf="user && user.roles.includes('ROLE_USER')"-->
   </div>
