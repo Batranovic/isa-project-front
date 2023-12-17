@@ -1,0 +1,56 @@
+<div *ngIf="company" class="company-container">
+    <div class="company-card">
+      <h2 class="company-title">{{company.name}}</h2>
+      <p><strong>Address:</strong> {{ company.address }}</p>
+      <p><strong>Description:</strong> {{ company.description }}</p>
+      <p><strong>Average grade:</strong> {{ company.averageGrade }}</p>
+    </div>
+  </div>
+  
+  <div *ngIf="equipments && equipments.length > 0" class="equipment-container">
+    <div class="equipment-card" *ngFor="let equipment of equipments">
+        <button *ngIf="user && user.roles.includes('ROLE_USER')"
+        class="add-button"
+        (click)="onAddRemoveClicked(equipment)"
+      >
+        {{ equipment.isAdded ? 'Remove' : 'Add' }}
+      </button>
+      
+  
+      <h2 class="company-title">{{ equipment.name }}</h2>
+      <p class="equipment-type">{{ equipment.equipmentType }}</p>
+      <p class="equipment-description">{{ equipment.description }}</p>
+      <p class="equipment-quantity">Quantity: {{ equipment.quantity }}</p>
+    </div>
+  </div>
+
+  <div  *ngIf="appointments && appointments.length > 0 && user && user.roles.includes('ROLE_USER')" class="appointment-container">
+    <table class="appointment-table">
+      <thead>
+        <tr>
+          <th>Date and Time</th>
+          <th>Duration</th>
+          <th>Status</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of appointments">
+            <td>{{ appointment.dateAndTime[2]+'.'+appointment.dateAndTime[1]+'.'+appointment.dateAndTime[0]+' '+appointment.dateAndTime[3]+':'+appointment.dateAndTime[4]+'0' }}</td>
+            <td>{{ appointment.duration }}</td>
+            <td>{{ appointment.status }}</td> 
+            <td>{{ appointment.companyAdmin.user.email}}</td>
+            <button 
+            mat-button-raised
+            (click)="reserveButtonClicked(appointment.id)"
+        >
+            Reserve
+        </button>                  
+        </tr>
+      </tbody>
+    </table>
+    <button mat-button-raised class="newDatesButton" (click)="newDatesButton()">New dates</button>                  
+  </div>
+
+  

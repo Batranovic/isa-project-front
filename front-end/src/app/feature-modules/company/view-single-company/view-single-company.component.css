@@ -1,0 +1,106 @@
+.company-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.company-card {
+  width: 500px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  position: relative;
+  background-color:#f9f3f3
+}
+
+.company-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #3498db;
+}
+
+.equipment-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.equipment-card {
+  width: 300px;
+  margin: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+}
+
+
+.add-button {
+  position: absolute;
+  top: 5;
+  right: 8px;
+  padding: 12px; /* Adjust the padding to make the button larger */
+  cursor: pointer;
+  color: #3498db;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  font-size: 16px; /* Adjust the font size to make the icon larger */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.add-button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.appointment-container {
+  text-align: center;
+  margin-top: 20px; /* Add margin for separation */
+  display: flex;
+  margin-bottom: 5em;
+}
+
+.appointment-table {
+  width: 60%; /* Adjust the width as needed */
+  border-collapse: collapse;
+  margin-left: 10em; /* Center the table */
+}
+
+.appointment-table th, .appointment-table td {
+  border: 1px solid #ddd; /* Add borders */
+  padding: 8px;
+}
+
+.appointment-table th {
+  background-color: #3498db; /* Header background color */
+  color: #fff; /* Header text color */
+}
+
+.newDatesButton{
+  text-decoration: none;
+  color: #2980b9;
+  font-weight: 350;
+  padding: 0 1vw;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid;
+  height: 2em;
+  margin-left: 3em;
+  margin-top: 3em;
+  }
+
+
+.newDatesButton:hover {
+  transform: scale(1.1);
+}

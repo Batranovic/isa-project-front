@@ -1,0 +1,56 @@
+<div class="registration-container">
+    <h2 class="registration-title">Update profile</h2>
+    <div class="profile" *ngIf="myProfile" class="registration-form">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input [(ngModel)]="myProfile.name" type="text" id="name" name="name" value="{{myProfile.name}}">
+        </div>
+        <div class="form-group">
+            <label for="surname">Surname:</label>
+            <input [(ngModel)]="myProfile.surname" type="text" id="surname" name="surname" value="{{myProfile.surname}}">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input [(ngModel)]="myProfile.password" type="password" id="password" name="password" value="{{myProfile.password}}">
+        </div>
+        <div class="form-group">
+            <label for="city">City:</label>
+            <input [(ngModel)]="myProfile.city" type="text" id="city" name="city" value="{{myProfile.city}}">
+        </div>
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <input [(ngModel)]="myProfile.country" type="text" id="country" name="country" value="{{myProfile.country}}">
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone number:</label>
+            <input [(ngModel)]="myProfile.phoneNumber" type="text" id="phoneNumber" name="phoneNumber" value="{{myProfile.phoneNumber}}">
+        </div>
+        <div class="form-group">
+            <label for="profession">Profession:</label>
+            <input [(ngModel)]="myProfile.profession" type="text" id="profession" name="profession" value="{{myProfile.profession}}">
+        </div>
+        <div class="form-group">
+            <label for="companyInformation">Company info:</label>
+            <input [(ngModel)]="myProfile.companyInformation" type="text" id="companyInformation" name="companyInformation" value="{{myProfile.companyInformation}}">
+        </div>
+        <button (click)="updateProfile()" class="register-button">Update profile</button>
+    </div>
+</div>
+
+<div  class="appointment-container">
+    <h2 class="company-title">Your reservations</h2>
+    <table class="appointment-table">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Date and Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of reservations">
+            <td>{{ reservation.status}}</td>     
+            <td>{{ reservation.appointment.dateAndTime[2]+'.'+ reservation.appointment.dateAndTime[1]+'.'+ reservation.appointment.dateAndTime[0]+' '+ reservation.appointment.dateAndTime[3]+':'+ reservation.appointment.dateAndTime[4]+'0'}}</td>       
+        </tr>
+      </tbody>
+    </table>
+  </div>
