@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Appointment } from '../company/model/appointment.model';
 import { User } from 'src/app/infrastructure/model/user.model';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { FreeAppointment } from '../company/model/free-appointment.model';
 
 @Component({
   selector: 'app-new-dates',
@@ -13,7 +14,7 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
 })
 export class NewDatesComponent {
   companyId: number | undefined;
-  appointments: Appointment[] = [];
+  appointments: any[] = [];
   selectedEquipmentIds: number[] = [];
   user: User | undefined;
  
@@ -48,20 +49,32 @@ export class NewDatesComponent {
     );
   }
 
-  reserveButtonClicked(appointmentId: number): void {
+  reserveButtonClicked(appointment: FreeAppointment): void {
     const userId = this.authService.user$.value.id!;
   
     if (this.selectedEquipmentIds.length > 0) {
-      this.companyService.createReservation(appointmentId, this.selectedEquipmentIds, userId).subscribe({
-        next: () => {
-          console.log('Reservation created successfully:');
-          alert('Successfully reserved!');
+      this.companyService.createAppointment(appointment).subscribe({
+        next: (createdAppointment: FreeAppointment) => {
+
+          this.companyService.createReservation(createdAppointment.id, this.selectedEquipmentIds, userId).subscribe({
+            next: () => {
+              console.log('Reservation created successfully:');
+              alert('Successfully reserved!');
+            },
+            error: (error) =>{
+              console.error('Error creating reservation:', error);
+              alert('Unable to make reservation');
+            }
+        });
+
+
         },
         error: (error) =>{
           console.error('Error creating reservation:', error);
           alert('Unable to make reservation');
         }
-    });
+      });
+     
     }
   }
 

@@ -5,6 +5,8 @@ import { SearchCompany } from './model/search-company.model';
 import { Company } from './model/company.model';
 import { Equipment } from '../equipment/model/equipment.model';
 import { Reservation } from './model/reservation.model';
+import { Appointment } from './model/appointment.model';
+import { FreeAppointment } from './model/free-appointment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +47,10 @@ export class CompanyService {
 
   createReservation(appointmentId: number, equipmentIds: number[], userId: number): Observable<any> {
     return this.http.post<any>(`http://localhost:8080/api/reservations/create/${appointmentId}/${userId}`,  equipmentIds);
+  }
+
+  createAppointment(appointment: FreeAppointment): Observable<any> {
+    return this.http.post<any>(`http://localhost:8080/api/appointments/create`,  appointment);
   }
 
 

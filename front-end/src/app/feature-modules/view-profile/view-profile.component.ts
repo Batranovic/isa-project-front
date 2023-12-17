@@ -14,7 +14,7 @@ export class ViewProfileComponent implements OnInit{
 
   public myProfile!: Profile;
   userId : number | undefined;
-  reservations: Reservation[] = [];
+  reservations: any[] = [];
   constructor(private profileService:ProfileService, private authService: AuthService){
 
   }

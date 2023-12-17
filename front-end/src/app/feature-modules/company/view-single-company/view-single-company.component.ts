@@ -17,7 +17,7 @@ export class ViewSingleCompanyComponent implements OnInit {
   companyId: number | undefined;
   company: Company | undefined;
   equipments: Equipment[] = [];
-  appointments: Appointment[] = [];
+  appointments: any[] = [];
   selectedEquipmentIds: number[] = [];
   user: User | undefined;
   

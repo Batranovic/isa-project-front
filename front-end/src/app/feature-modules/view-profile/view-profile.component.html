@@ -49,7 +49,7 @@
       <tbody>
         <tr *ngFor="let reservation of reservations">
             <td>{{ reservation.status}}</td>     
-            <td>{{ reservation.appointment.dateAndTime}}</td>       
+            <td>{{ reservation.appointment.dateAndTime[2]+'.'+ reservation.appointment.dateAndTime[1]+'.'+ reservation.appointment.dateAndTime[0]+' '+ reservation.appointment.dateAndTime[3]+':'+ reservation.appointment.dateAndTime[4]+'0'}}</td>       
         </tr>
       </tbody>
     </table>
