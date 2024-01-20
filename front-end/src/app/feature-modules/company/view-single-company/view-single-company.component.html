@@ -20,7 +20,9 @@
       <h2 class="company-title">{{ equipment.name }}</h2>
       <p class="equipment-type">{{ equipment.equipmentType }}</p>
       <p class="equipment-description">{{ equipment.description }}</p>
-      <p class="equipment-quantity">Quantity: {{ equipment.quantity }}</p>
+      <p class="equipment-quantity">
+        Quantity: {{ equipment.quantity - equipment.reservedQuantity === 0 ? 'Out of stock' : equipment.quantity - equipment.reservedQuantity }}
+      </p>
     </div>
   </div>
 
