@@ -69,20 +69,37 @@ export class ViewSingleCompanyComponent implements OnInit {
 
   // Your Angular component
 
-  reserveButtonClicked(appointmentId: number): void {
+  reserveEquipment(appointment: Appointment): void {
     const userId = this.authService.user$.value.id!;
-  
-    if (this.selectedEquipmentIds.length > 0) {
-      this.companyService.createReservation(appointmentId, this.selectedEquipmentIds, userId).subscribe({
-        next: () => {
-          console.log('Reservation created successfully:');
-          alert('Successfully reserved!');
-        },
-        error: (error) => {
-          console.error('Error creating reservation:', error);
-          alert('Unable to make reservation');
+    
+    if (this.selectedEquipmentIds.length > 0 && appointment) {
+      if (appointment.status === 1) {
+        alert('The selected appointment is not free');
+        return;
+      }
+      if (this.selectedEquipmentIds) {
+        const areQuantitiesEqual = this.selectedEquipmentIds.every(equipmentId => {
+          const equipment = this.equipments.find(e => e.id === equipmentId);
+          return equipment && equipment.reservedQuantity === equipment.quantity;
+        });
+      
+        if (areQuantitiesEqual) {
+          alert('Selected equipment is out of stock.');
+          return;
         }
-      });
+      }
+      
+      this.companyService.createReservation(appointment!.id, this.selectedEquipmentIds, userId)
+        .subscribe(
+          (response) => {
+            alert('Equipment reserved successfully');
+            this.getAppointmentsForCompany(this.companyId as number);
+          },
+          (error) => {
+            console.error('Error creating reservation:', error);
+            alert('Unable to make reservation');
+          }
+        );
     }
   }
   
