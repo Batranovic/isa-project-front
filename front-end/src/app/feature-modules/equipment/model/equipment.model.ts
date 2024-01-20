@@ -3,6 +3,7 @@ export interface Equipment {
     name: string,
     equipmentType: string,
     description: string,
-    quantity: number
+    quantity: number,
+    reservedQuantity: number,
     isAdded?: boolean;
 }

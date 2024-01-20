@@ -64,22 +64,23 @@ export class ViewSingleCompanyComponent implements OnInit {
 
   // Your Angular component
 
-reserveButtonClicked(appointmentId: number): void {
-  const userId = this.authService.user$.value.id!;
-
-  if (this.selectedEquipmentIds.length > 0) {
-    this.companyService.createReservation(appointmentId, this.selectedEquipmentIds, userId).subscribe({
-      next: () => {
-        console.log('Reservation created successfully:');
-        alert('Successfully reserved!');
-      },
-      error: (error) =>{
-        console.error('Error creating reservation:', error);
-        alert('Unable to make reservation');
-      }
-  });
+  reserveButtonClicked(appointmentId: number): void {
+    const userId = this.authService.user$.value.id!;
+  
+    if (this.selectedEquipmentIds.length > 0) {
+      this.companyService.createReservation(appointmentId, this.selectedEquipmentIds, userId).subscribe({
+        next: () => {
+          console.log('Reservation created successfully:');
+          alert('Successfully reserved!');
+        },
+        error: (error) => {
+          console.error('Error creating reservation:', error);
+          alert('Unable to make reservation');
+        }
+      });
+    }
   }
-}
+  
 
 
 
