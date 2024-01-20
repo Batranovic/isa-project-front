@@ -24,12 +24,12 @@ export class ViewSingleCompanyComponent implements OnInit {
   constructor(private route: ActivatedRoute, private companyService: CompanyService, private authService: AuthService, private router: Router) {}
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      const companyId = +params.get('id')!;
+      this.companyId = +params.get('id')!;
 
-      this.companyService.getCompanyDetails(companyId).subscribe((company) => {
+      this.companyService.getCompanyDetails(this.companyId).subscribe((company) => {
         this.company = company;
-        this.getEquipmentsForCompany(companyId);
-        this.getAppointmentsForCompany(companyId);
+        this.getEquipmentsForCompany(this.companyId as number);
+        this.getAppointmentsForCompany(this.companyId as number);
         
       });
       this.authService.user$.subscribe(user => {
