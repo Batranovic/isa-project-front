@@ -71,12 +71,16 @@ export class ViewSingleCompanyComponent implements OnInit {
 
   reserveEquipment(appointment: Appointment): void {
     const userId = this.authService.user$.value.id!;
-    
+    if(this.selectedEquipmentIds.length === 0){
+      alert('You did not select any equipment');
+      return;
+    }
     if (this.selectedEquipmentIds.length > 0 && appointment) {
       if (appointment.status === 1) {
         alert('The selected appointment is not free');
         return;
       }
+
       if (this.selectedEquipmentIds) {
         const areQuantitiesEqual = this.selectedEquipmentIds.every(equipmentId => {
           const equipment = this.equipments.find(e => e.id === equipmentId);
