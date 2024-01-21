@@ -4,6 +4,7 @@ import { Profile } from 'src/app/infrastructure/model/profile.model';
 import { ProfileService } from 'src/app/infrastructure/service/profile.service';
 import { Appointment } from '../company/model/appointment.model';
 import { Reservation } from '../company/model/reservation.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-view-profile',
@@ -46,6 +47,24 @@ export class ViewProfileComponent implements OnInit{
     this.profileService.updateProfile(this.myProfile).subscribe((profile:Profile)=>{
       this.myProfile = profile;
     })
+  }
+
+  cancelReservation(reservationId: number) {
+    const userId = this.authService.user$.value.id!;
+
+    this.profileService.cancelReservationForUser(userId, reservationId).subscribe(
+      response => {
+        console.log('Reservation canceled successfully:', response);
+
+        this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
+          this.reservations = reservations;
+          console.log('Updated Reservations:', this.reservations);
+        });
+      },
+      error => {
+        console.error('Error canceling reservation:', error);
+      }
+    );
   }
 
 }

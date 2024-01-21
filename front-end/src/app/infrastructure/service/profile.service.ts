@@ -22,4 +22,8 @@ export class ProfileService {
   getReservationsForUser(userId: number): Observable<any>{
     return this.http.get<any>(`http://localhost:8080/api/reservations/userReservation/${userId}`);
   }
+  cancelReservationForUser(userId: number, reservationId: number): Observable<any> {
+    return this.http.put<any>(`http://localhost:8080/api/reservations/cancel/${reservationId}/${userId}`, {});
+  }
+  
 }

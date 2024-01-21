@@ -105,3 +105,13 @@
   .cancel-button:hover {
     background-color: #2980b9; 
   }
+
+  .canceled-row {
+    background-color: #eee; /* Postavite željenu boju pozadine za otkazane redove */
+  }
+  
+  .cancel-button {
+    /* Dodajte stilove koje želite za dugme Cancel (npr. postavljanje boje teksta na belu boju) */
+    color: white;
+  }
+  
