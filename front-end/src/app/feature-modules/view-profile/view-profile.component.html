@@ -44,12 +44,14 @@
         <tr>
           <th>Status</th>
           <th>Date and Time</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let reservation of reservations">
             <td>{{ reservation.status}}</td>     
-            <td>{{ reservation.appointment.dateAndTime[2]+'.'+ reservation.appointment.dateAndTime[1]+'.'+ reservation.appointment.dateAndTime[0]+' '+ reservation.appointment.dateAndTime[3]+':'+ reservation.appointment.dateAndTime[4]+'0'}}</td>       
+            <td>{{ reservation.appointment.dateAndTime[2]+'.'+ reservation.appointment.dateAndTime[1]+'.'+ reservation.appointment.dateAndTime[0]+' '+ reservation.appointment.dateAndTime[3]+':'+ reservation.appointment.dateAndTime[4]+'0'}}</td> 
+            <td><button class="cancel-button">Cancel</button></td>      
         </tr>
       </tbody>
     </table>

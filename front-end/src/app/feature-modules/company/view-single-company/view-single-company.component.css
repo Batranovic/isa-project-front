@@ -67,14 +67,13 @@
 .appointment-container {
   text-align: center;
   margin-top: 20px; /* Add margin for separation */
-  display: flex;
-  margin-bottom: 5em;
+
 }
 
 .appointment-table {
   width: 60%; /* Adjust the width as needed */
   border-collapse: collapse;
-  margin-left: 10em; /* Center the table */
+  margin: 0 auto; /* Center the table */
 }
 
 .appointment-table th, .appointment-table td {
@@ -103,4 +102,27 @@
 
 .newDatesButton:hover {
   transform: scale(1.1);
+}
+
+.reserve-button {
+  width: 60%;
+  padding: 10px;
+  background-color: #3498db; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 5px;
+}
+
+.reserve-button:hover {
+  background-color: #2980b9; 
+}
+
+.app-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #3498db;
 }

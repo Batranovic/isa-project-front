@@ -27,13 +27,13 @@
   </div>
 
   <div  *ngIf="appointments && appointments.length > 0 && user && user.roles.includes('ROLE_USER')" class="appointment-container">
+    <h2 class="app-title">Available appointments</h2>
     <table class="appointment-table">
       <thead>
         <tr>
           <th>Date and Time</th>
           <th>Duration</th>
           <th>Status</th>
-          <th></th>
           <th></th>
         </tr>
       </thead>
@@ -42,13 +42,7 @@
             <td>{{ appointment.dateAndTime[2]+'.'+appointment.dateAndTime[1]+'.'+appointment.dateAndTime[0]+' '+appointment.dateAndTime[3]+':'+appointment.dateAndTime[4]+'0' }}</td>
             <td>{{ appointment.duration }}</td>
             <td>{{ appointment.status }}</td> 
-            <td>{{ appointment.companyAdmin.user.email}}</td>
-            <button 
-            mat-button-raised
-            (click)="reserveEquipment(appointment)"
-        >
-            Reserve
-        </button>                  
+            <td><button class="reserve-button" (click)="reserveEquipment(appointment)">Reserve</button></td>                  
         </tr>
       </tbody>
     </table>

@@ -90,3 +90,18 @@
     font-weight: bold;
     color: #3498db;
   }
+
+  .cancel-button {
+    width: 60%;
+    padding: 10px;
+    background-color: #3498db; 
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .cancel-button:hover {
+    background-color: #2980b9; 
+  }
