@@ -7,6 +7,9 @@ import { Appointment, AppointmentStatus } from '../model/appointment.model';
 import { DatePipe } from '@angular/common';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/model/user.model';
+interface TemporaryQuantities {
+  [equipmentId: number]: number;
+}
 
 @Component({
   selector: 'app-view-single-company',
@@ -62,49 +65,61 @@ export class ViewSingleCompanyComponent implements OnInit {
     );
   }
   newDatesButton(): void {
-    localStorage.setItem('selectedEquipment', JSON.stringify(this.selectedEquipmentIds));
+    const reservationRequests = this.equipments
+    .filter(equipment => this.temporaryQuantities[equipment.id] > 0)
+    .map(equipment => ({
+      equipmentId: equipment.id,
+      quantity: this.temporaryQuantities[equipment.id]
+    }));
+  
+    // Store reservationRequests and companyId in local storage
+    localStorage.setItem('reservationRequests', JSON.stringify(reservationRequests));
     localStorage.setItem('companyId', JSON.stringify(this.company!.id));
+  
+    // Navigate to '/new-dates' route
     this.router.navigate(['/new-dates']);
   }
-
-  // Your Angular component
+  
 
   reserveEquipment(appointment: Appointment): void {
     const userId = this.authService.user$.value.id!;
-    if(this.selectedEquipmentIds.length === 0){
+    const reservationRequests = this.equipments
+    .filter(equipment => this.temporaryQuantities[equipment.id] > 0)
+    .map(equipment => ({
+      equipmentId: equipment.id,
+      quantity: this.temporaryQuantities[equipment.id]
+    }));
+
+    if (reservationRequests.length === 0) {
       alert('You did not select any equipment');
       return;
     }
-    if (this.selectedEquipmentIds.length > 0 && appointment) {
-      if (appointment.status === 1) {
-        alert('The selected appointment is not free');
+  
+      const areQuantitiesEqual = reservationRequests.every(request => {
+        const equipment = this.equipments.find(e => e.id === request.equipmentId);
+        return equipment && equipment.reservedQuantity === equipment.quantity;
+      });
+  
+      if (areQuantitiesEqual) {
+        alert('Selected equipment is out of stock.');
         return;
       }
-
-      if (this.selectedEquipmentIds) {
-        const areQuantitiesEqual = this.selectedEquipmentIds.every(equipmentId => {
-          const equipment = this.equipments.find(e => e.id === equipmentId);
-          return equipment && equipment.reservedQuantity === equipment.quantity;
-        });
-      
-        if (areQuantitiesEqual) {
-          alert('Selected equipment is out of stock.');
-          return;
-        }
-      }
-      
-      this.companyService.createReservation(appointment!.id, this.selectedEquipmentIds, userId)
+  
+      this.companyService.createReservation(appointment!.id, reservationRequests, userId)
         .subscribe(
           (response) => {
             alert('Equipment reserved successfully');
             this.getAppointmentsForCompany(this.companyId as number);
+            this.getEquipmentsForCompany(this.companyId as number);
+            this.temporaryQuantities = {};
+            
           },
           (error) => {
             console.error('Error creating reservation:', error);
             alert('Unable to make reservation');
           }
         );
-    }
+    
   }
   
 
@@ -119,5 +134,21 @@ onAddRemoveClicked(equipment: Equipment) {
     this.selectedEquipmentIds.splice(index, 1);
   }
 }
+
+
+temporaryQuantities: TemporaryQuantities = {};
+
+onQuantityChangeClicked(equipment: Equipment, action: 'increase' | 'decrease') {
+  if (!this.temporaryQuantities[equipment.id]) {
+    this.temporaryQuantities[equipment.id] = 0;
+  }
+
+  if (action === 'increase' && this.temporaryQuantities[equipment.id] < equipment.quantity - equipment.reservedQuantity) {
+    this.temporaryQuantities[equipment.id]++;
+  } else if (action === 'decrease' && this.temporaryQuantities[equipment.id] > 0) {
+    this.temporaryQuantities[equipment.id]--;
+  }
+}
+
 
 }

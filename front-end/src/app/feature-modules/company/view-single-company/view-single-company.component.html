@@ -9,13 +9,9 @@
   
   <div *ngIf="equipments && equipments.length > 0" class="equipment-container">
     <div class="equipment-card" *ngFor="let equipment of equipments">
-        <button *ngIf="user && user.roles.includes('ROLE_USER')"
-        class="add-button"
-        (click)="onAddRemoveClicked(equipment)"
-      >
-        {{ equipment.isAdded ? 'Remove' : 'Add' }}
-      </button>
-      
+      <button *ngIf="user && user.roles.includes('ROLE_USER')" class="quantity-button" (click)="onQuantityChangeClicked(equipment, 'decrease')" >-</button>
+      <span *ngIf="user && user.roles.includes('ROLE_USER')" class="selected-quantity">{{ temporaryQuantities[equipment.id] || 0 }}</span>
+      <button *ngIf="user && user.roles.includes('ROLE_USER')" class="quantity-button" (click)="onQuantityChangeClicked(equipment, 'increase')">+</button>
   
       <h2 class="company-title">{{ equipment.name }}</h2>
       <p class="equipment-type">{{ equipment.equipmentType }}</p>
@@ -39,7 +35,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let appointment of appointments">
-            <td>{{ appointment.dateAndTime[2]+'.'+appointment.dateAndTime[1]+'.'+appointment.dateAndTime[0]+' '+appointment.dateAndTime[3]+':'+appointment.dateAndTime[4]+'0' }}</td>
+            <td>{{ appointment.dateAndTime[2]+'.'+appointment.dateAndTime[1]+'.'+appointment.dateAndTime[0]+' '+appointment.dateAndTime[3]+':'+appointment.dateAndTime[4]+':0' }}</td>
             <td>{{ appointment.duration }}</td>
             <td>{{ appointment.status }}</td> 
             <td><button class="reserve-button" (click)="reserveEquipment(appointment)">Reserve</button></td>                  

@@ -6,6 +6,13 @@ import { Appointment } from '../company/model/appointment.model';
 import { User } from 'src/app/infrastructure/model/user.model';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { FreeAppointment } from '../company/model/free-appointment.model';
+import { Equipment } from '../equipment/model/equipment.model';
+import { ReservationRequest } from '../company/model/equipment-quantity.model';
+
+
+interface TemporaryQuantities {
+  [equipmentId: number]: number;
+}
 
 @Component({
   selector: 'app-new-dates',
@@ -17,7 +24,9 @@ export class NewDatesComponent {
   appointments: any[] = [];
   selectedEquipmentIds: number[] = [];
   user: User | undefined;
- 
+  equipments: Equipment[] = [];  // Define equipments property
+  temporaryQuantities: TemporaryQuantities = {};  // Define temporaryQuantities property
+  reservationRequests: ReservationRequest[] = [];
   dateForm = new FormGroup({
     date: new FormControl()
   }); 
@@ -25,14 +34,22 @@ export class NewDatesComponent {
 
   constructor(private formBuilder: FormBuilder,private route: ActivatedRoute, private companyService: CompanyService, private authService: AuthService, private router: Router) {}
   ngOnInit(): void {
-   
-      this.companyId = Number(localStorage.getItem('companyId'));
-      this.selectedEquipmentIds = JSON.parse(localStorage.getItem('selectedEquipment')!)
-      
-      this.authService.user$.subscribe(user => {
-        this.user = user;
-      });
-  } 
+    this.companyId = Number(localStorage.getItem('companyId'));
+    this.reservationRequests = JSON.parse(localStorage.getItem('reservationRequests')!);
+
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
+  
+    this.companyService.getEquipmentsForCompany(this.companyId!).subscribe(
+      (equipments) => {
+        this.equipments = equipments;
+      },
+      (error) => {
+        console.error('Error fetching equipments:', error);
+      }
+    );
+  }
 
   getAppointmentsForCompany(): void {
     const selectedDate: string = this.dateForm.get('date')!.value;
@@ -50,33 +67,29 @@ export class NewDatesComponent {
   }
 
   reserveButtonClicked(appointment: FreeAppointment): void {
-    const userId = this.authService.user$.value.id!;
-  
-    if (this.selectedEquipmentIds.length > 0) {
-      this.companyService.createAppointment(appointment).subscribe({
-        next: (createdAppointment: FreeAppointment) => {
+    const userId = this.authService.user$.value.id!
 
-          this.companyService.createReservation(createdAppointment.id, this.selectedEquipmentIds, userId).subscribe({
-            next: () => {
-              console.log('Reservation created successfully:');
-              alert('Successfully reserved!');
-            },
-            error: (error) =>{
-              console.error('Error creating reservation:', error);
-              alert('Unable to make reservation');
-            }
-        });
-
-
-        },
-        error: (error) =>{
-          console.error('Error creating reservation:', error);
-          alert('Unable to make reservation');
-        }
-      });
-     
+    if (this.reservationRequests.length === 0) {
+      alert('You did not select any equipment');
+      return;
     }
+    this.companyService.createAppointment(appointment).subscribe({
+      next: (createdAppointment: FreeAppointment) => {
+        this.companyService.createReservation(createdAppointment.id, this.reservationRequests, userId).subscribe({
+          next: () => {
+            alert('Reservation created successfully');
+            this.getAppointmentsForCompany();
+          },
+          error: (error) => {
+            console.error('Error creating reservation:', error);
+            alert('Unable to make reservation');
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error creating appointment:', error);
+      }
+    });
   }
-
   
 }

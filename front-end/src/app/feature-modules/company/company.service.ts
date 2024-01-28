@@ -7,6 +7,7 @@ import { Equipment } from '../equipment/model/equipment.model';
 import { Reservation } from './model/reservation.model';
 import { Appointment } from './model/appointment.model';
 import { FreeAppointment } from './model/free-appointment.model';
+import { ReservationRequest } from './model/equipment-quantity.model';
 
 @Injectable({
   providedIn: 'root',
@@ -45,8 +46,9 @@ export class CompanyService {
   }
 
 
-  createReservation(appointmentId: number, equipmentIds: number[], userId: number): Observable<any> {
-    return this.http.post<any>(`http://localhost:8080/api/reservations/create/${appointmentId}/${userId}`,  equipmentIds);
+  
+  createReservation(appointmentId: number, reservationRequests: ReservationRequest[], userId: number): Observable<any> {
+    return this.http.post<any>(`http://localhost:8080/api/reservations/create/${appointmentId}/${userId}`,  reservationRequests);
   }
 
   createAppointment(appointment: FreeAppointment): Observable<any> {

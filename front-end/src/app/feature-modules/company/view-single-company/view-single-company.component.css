@@ -119,7 +119,13 @@
 .reserve-button:hover {
   background-color: #2980b9; 
 }
+.quantity-button {
+  margin: 0 4px; /* Adjust the margin value to add the desired space */
+}
 
+.selected-quantity {
+  margin: 0 8px; /* Adjust the margin value to add the desired space */
+}
 .app-title {
   text-align: center;
   font-size: 24px;
