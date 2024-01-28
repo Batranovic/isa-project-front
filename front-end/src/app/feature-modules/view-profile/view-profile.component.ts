@@ -21,20 +21,17 @@ export class ViewProfileComponent implements OnInit{
   }
 
   ngOnInit() {
-    // Subscribe to user$ to get the user information
+
     this.authService.user$.subscribe(user => {
-      // Check if user has an id
+
       if (user.id) {
         this.userId = user.id;
 
-        // Now you can use userId to fetch the profile
         this.profileService.getProfile(this.userId).subscribe((profile: Profile) => {
           this.myProfile = profile;
           console.log(this.myProfile);
 
-          // Fetch appointments after getting the user profile
           this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
-            // Assign fetched reservations to the component property
             this.reservations = reservations;
             console.log('Reservations:', this.reservations);
           });

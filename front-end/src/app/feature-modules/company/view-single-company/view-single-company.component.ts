@@ -23,8 +23,10 @@ export class ViewSingleCompanyComponent implements OnInit {
   appointments: any[] = [];
   selectedEquipmentIds: number[] = [];
   user: User | undefined;
-  
+  temporaryQuantities: TemporaryQuantities = {};
+
   constructor(private route: ActivatedRoute, private companyService: CompanyService, private authService: AuthService, private router: Router) {}
+ 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.companyId = +params.get('id')!;
@@ -72,11 +74,10 @@ export class ViewSingleCompanyComponent implements OnInit {
       quantity: this.temporaryQuantities[equipment.id]
     }));
   
-    // Store reservationRequests and companyId in local storage
     localStorage.setItem('reservationRequests', JSON.stringify(reservationRequests));
     localStorage.setItem('companyId', JSON.stringify(this.company!.id));
   
-    // Navigate to '/new-dates' route
+    
     this.router.navigate(['/new-dates']);
   }
   
@@ -122,21 +123,6 @@ export class ViewSingleCompanyComponent implements OnInit {
     
   }
   
-
-onAddRemoveClicked(equipment: Equipment) {
-  equipment.isAdded = !equipment.isAdded;
-
-  const index = this.selectedEquipmentIds.indexOf(equipment.id);
-
-  if (equipment.isAdded && index === -1) {
-    this.selectedEquipmentIds.push(equipment.id);
-  } else if (!equipment.isAdded && index !== -1) {
-    this.selectedEquipmentIds.splice(index, 1);
-  }
-}
-
-
-temporaryQuantities: TemporaryQuantities = {};
 
 onQuantityChangeClicked(equipment: Equipment, action: 'increase' | 'decrease') {
   if (!this.temporaryQuantities[equipment.id]) {
