@@ -63,5 +63,21 @@ export class ViewProfileComponent implements OnInit{
       }
     );
   }
+  claimReservation(reservationId: number) {
+    const userId = this.authService.user$.value.id!;
 
+    this.profileService.claimReservationForUser(userId, reservationId).subscribe(
+      response => {
+        console.log('Reservation claimed successfully:', response);
+
+        this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
+          this.reservations = reservations;
+          console.log('Updated Reservations:', this.reservations);
+        });
+      },
+      error => {
+        console.error('Error claiming reservation:', error);
+      }
+    );
+  }
 }
