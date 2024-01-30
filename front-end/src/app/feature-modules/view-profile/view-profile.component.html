@@ -36,7 +36,7 @@
         <button (click)="updateProfile()" class="register-button">Update profile</button>
     </div>
 </div>
-
+<h2 class="registration-title2">Penal points: {{ penalPoints }}</h2>
 <div class="appointment-container">
     <h2 class="company-title">Your reservations</h2>
     <table class="appointment-table">
@@ -46,14 +46,22 @@
           <th>Date and Time</th>
           <th>Duration</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let reservation of reservations" [ngClass]="{'canceled-row': reservation.status === 'CANCELED'}">
           <td>{{ reservation.status }}</td>
-          <td>{{ reservation.appointment.dateAndTime[2] + '.' + reservation.appointment.dateAndTime[1] + '.' + reservation.appointment.dateAndTime[0] + ' ' + reservation.appointment.dateAndTime[3] + ':' + reservation.appointment.dateAndTime[4] + '0' }}</td>
+          <td>{{ reservation.appointment.dateAndTime}}</td>
           <td>{{ reservation.appointment.duration }}</td>
-          <td><button class="cancel-button" *ngIf="reservation.status !== 'CANCELED'" (click)="cancelReservation(reservation.id)">Cancel</button></td>
+          <td>
+            <button class="cancelClaimButton" [attr.disabled]="(reservation.status == 'CANCELED') ? '' : null"
+                    (click)="cancelReservation(reservation.id,reservation)">Cancel</button>
+          </td>
+          <td>
+            <button class="cancelClaimButton"  [attr.disabled]="(reservation.status == 'CLAIMED') || (reservation.status == 'CANCELED') ? true : null"
+                    (click)="claimReservation(reservation.id)">Claim</button>
+          </td>
         </tr>
       </tbody>
     </table>

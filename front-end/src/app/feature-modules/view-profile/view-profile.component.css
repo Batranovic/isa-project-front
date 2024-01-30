@@ -64,6 +64,15 @@
     color: #3498db;
     margin-top: -100px;
   }
+
+  .registration-title2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #3498db;
+    margin-top: -60px;
+    margin-left: 10px;
+  }
   .appointment-container {
     text-align: center;
     margin-top: 20px; /* Add margin for separation */
@@ -89,9 +98,10 @@
     font-size: 24px;
     font-weight: bold;
     color: #3498db;
+    margin-top: 50px;
   }
 
-  .cancel-button {
+  .cancelClaimButton  {
     width: 60%;
     padding: 10px;
     background-color: #3498db; 
@@ -102,18 +112,7 @@
     transition: background-color 0.3s;
   }
 
-  .claim-button {
-    width: 60%;
-    padding: 10px;
-    background-color: #3498db; 
-    color: #fff; 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-
-  .cancel-button:hover {
+  .cancelClaimButton:hover {
     background-color: #2980b9; 
   }
 
@@ -121,8 +120,14 @@
     background-color: #eee; /* Postavite željenu boju pozadine za otkazane redove */
   }
   
-  .cancel-button {
-    /* Dodajte stilove koje želite za dugme Cancel (npr. postavljanje boje teksta na belu boju) */
-    color: white;
-  }
-  
+.cancelClaimButton:disabled,
+  .cancelClaimButton[disabled]{
+  width: 60%;
+  padding: 10px;
+  background-color: #878787; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px;
+  cursor: default;
+  transition: background-color 0.3s;
+}
