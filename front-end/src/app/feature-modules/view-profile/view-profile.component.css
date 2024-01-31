@@ -73,13 +73,18 @@
     margin-top: -60px;
     margin-left: 10px;
   }
+  .small-qr-code {
+    width: 70px;  /* Adjust the width as needed */
+    height: 70px; /* Adjust the height as needed */
+    /* You can also add other styles as needed, such as margin, padding, etc. */
+  }
   .appointment-container {
     text-align: center;
     margin-top: 20px; /* Add margin for separation */
   }
   
   .appointment-table {
-    width: 80%; /* Adjust the width as needed */
+    width: 70%; /* Adjust the width as needed */
     border-collapse: collapse;
     margin: 15px auto; /* Center the table */
   }
@@ -118,7 +123,7 @@
   }
 
   .cancelClaimButton  {
-    width: 60%;
+    width: 80%;
     padding: 10px;
     background-color: #3498db; 
     color: #fff; 
@@ -138,7 +143,7 @@
   
 .cancelClaimButton:disabled,
   .cancelClaimButton[disabled]{
-  width: 60%;
+  width: 90%;
   padding: 10px;
   background-color: #878787; 
   color: #fff; 
@@ -159,4 +164,8 @@ th:hover {
 .sort-indicator {
   font-size: 10px;
   margin-left: 5px;
+}
+
+::ng-deep .mat-sort-header-arrow.ng-trigger.ng-trigger-arrowPosition {
+  opacity: 0.54 !important;
 }

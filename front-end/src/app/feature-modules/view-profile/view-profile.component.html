@@ -40,13 +40,13 @@
 <div class="appointment-container">
     <h2 class="company-title">Your reservations</h2>
     <div>
-      <label>
+      <label style="font-size: large;">
         <input type="checkbox" [(ngModel)]="pendingStatus" (change)="getFilteredReservations()"> Pending
       </label>
-      <label>
+      <label style="font-size: large;">
         <input type="checkbox" [(ngModel)]="canceledStatus" (change)="getFilteredReservations()"> Canceled
       </label>
-      <label>
+      <label style="font-size: large;">
         <input type="checkbox" [(ngModel)]="claimedStatus" (change)="getFilteredReservations()"> Claimed
       </label>
     </div>
@@ -60,16 +60,17 @@
           <th>QR code</th>
           <th></th>
           <th></th>
-          <th>QR</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let reservation of reservations" [ngClass]="{'canceled-row': reservation.status === 'CANCELED'}">
+        <tr *ngFor="let reservation of reservations">
           <td>{{ reservation.status }}</td>
           <td>{{ reservation.appointment.dateAndTime}}</td>
           <td>{{ reservation.appointment.duration }}</td>
           <td>{{ reservation.price }}</td>
-          <td>{{ reservation.qrCode}}</td>
+          <td>
+            <img [src]="reservation.qrCode" alt="QR Code" class="small-qr-code">
+          </td>
           <td>
             <button class="cancelClaimButton" [attr.disabled]="(reservation.status == 'CANCELED') ? '' : null"
                     (click)="cancelReservation(reservation.id,reservation)">Cancel</button>
@@ -77,9 +78,6 @@
           <td>
             <button class="cancelClaimButton"  [attr.disabled]="(reservation.status == 'CLAIMED') || (reservation.status == 'CANCELED') ? true : null"
                     (click)="claimReservation(reservation.id)">Claim</button>
-          </td>
-          <td>
-            <img [src]="reservation.qrCode" alt="QR Code">
           </td>
         </tr>
       </tbody>
@@ -98,12 +96,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let reservation of reservations">
-          <td>{{ reservation.status.claimed }}</td>
+        <tr *ngFor="let reservation of claimedReservations">
+          <td>{{ reservation.status }}</td>
           <td>{{ reservation.appointment.dateAndTime }}</td>
           <td>{{ reservation.appointment.duration }}</td>
           <td>{{ reservation.price }}</td>
-          <td>{{ reservation.qrCode }}</td>
+          <td>
+            <img [src]="reservation.qrCode" alt="QR Code" class="small-qr-code">
+          </td>
         </tr>
       </tbody>
     </table>
