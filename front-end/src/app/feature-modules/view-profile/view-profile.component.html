@@ -40,17 +40,14 @@
 <div class="appointment-container">
     <h2 class="company-title">Your reservations</h2>
     <div>
-      <label>
+      <label style="font-size: large;">
         <input type="checkbox" [(ngModel)]="pendingStatus" (change)="getFilteredReservations()"> Pending
       </label>
-      <label>
+      <label style="font-size: large;">
         <input type="checkbox" [(ngModel)]="canceledStatus" (change)="getFilteredReservations()"> Canceled
       </label>
-      <label>
+      <label style="font-size: large;">
         <input type="checkbox" [(ngModel)]="claimedStatus" (change)="getFilteredReservations()"> Claimed
-      </label>
-      <label>
-        <input type="checkbox" [(ngModel)]="expiredStatus" (change)="getFilteredReservations()"> Expired
       </label>
     </div>
     <table class="appointment-table">
@@ -60,17 +57,20 @@
           <th>Date and Time</th>
           <th>Duration</th>
           <th>Price</th>
+          <th>QR code</th>
           <th></th>
           <th></th>
-          <th>QR</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let reservation of reservations" [ngClass]="{'canceled-row': reservation.status === 'CANCELED'}">
+        <tr *ngFor="let reservation of reservations">
           <td>{{ reservation.status }}</td>
           <td>{{ reservation.appointment.dateAndTime}}</td>
           <td>{{ reservation.appointment.duration }}</td>
           <td>{{ reservation.price }}</td>
+          <td>
+            <img [src]="reservation.qrCode" alt="QR Code" class="small-qr-code">
+          </td>
           <td>
             <button class="cancelClaimButton" [attr.disabled]="(reservation.status == 'CANCELED') ? '' : null"
                     (click)="cancelReservation(reservation.id,reservation)">Cancel</button>
@@ -79,11 +79,34 @@
             <button class="cancelClaimButton"  [attr.disabled]="(reservation.status == 'CLAIMED') || (reservation.status == 'CANCELED') ? true : null"
                     (click)="claimReservation(reservation.id)">Claim</button>
           </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="appointment-container">
+    <h2 class="company-title">History of claimed reservations</h2>
+    <table class="appointment-table2">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th (click)="sortTable('dateAndTime')">Date and Time <span *ngIf="sortColumn === 'dateAndTime'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
+          <th (click)="sortTable('duration')">Duration <span *ngIf="sortColumn === 'duration'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
+          <th (click)="sortTable('price')">Price <span *ngIf="sortColumn === 'price'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
+          <th>QR code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of claimedReservations">
+          <td>{{ reservation.status }}</td>
+          <td>{{ reservation.appointment.dateAndTime }}</td>
+          <td>{{ reservation.appointment.duration }}</td>
+          <td>{{ reservation.price }}</td>
           <td>
-            <img [src]="reservation.qrCode" alt="QR Code" style="max-width: 40%; max-height: 40%;">
+            <img [src]="reservation.qrCode" alt="QR Code" class="small-qr-code">
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  
+
+    

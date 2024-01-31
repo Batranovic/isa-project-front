@@ -18,19 +18,16 @@ export class ViewProfileComponent implements OnInit{
   userId : number | undefined;
   reservations: any[] = [];
   penalPoints: number = 0;
-  status: { pending: boolean, canceled: boolean, claimed: boolean, expired: boolean } = {
-    pending: false,
-    canceled: false,
-    claimed: false,
-    expired: false
-  };
+  claimedReservations: any[] = [];
+  sortColumn: string = ''; 
+  sortDirection: string = 'asc';
   constructor(private profileService:ProfileService, private authService: AuthService){
   }
 
   ngOnInit() {
 
     this.authService.user$.subscribe(user => {
-
+      this.updateQRCodes();
       if (user.id) {
         this.userId = user.id;
         this.checkPenalPoints()
@@ -50,10 +47,30 @@ export class ViewProfileComponent implements OnInit{
             }
             
           });
-        });
+        })
       }
     });
   }
+
+  sortTable(column: string): void {
+    this.sortDirection = (this.sortColumn === column && this.sortDirection === 'asc') ? 'desc' : 'asc';
+    this.sortColumn = column;
+  
+    this.claimedReservations.sort((a, b) => {
+      const valueA: string = a.appointment[column];
+      const valueB: string = b.appointment[column];
+  
+      if (column === 'dateAndTime') {
+        return this.sortDirection === 'asc' ? new Date(valueA).getTime() - new Date(valueB).getTime() : new Date(valueB).getTime() - new Date(valueA).getTime();
+      } else if (column === 'duration' || column === 'price') {
+        return this.sortDirection === 'asc' ? parseFloat(valueA) - parseFloat(valueB) : parseFloat(valueB) - parseFloat(valueA);
+      } else {
+        return this.sortDirection === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+      }
+    });
+  }
+  
+  
 
   checkIfExpired(date:string){
     let currentDate = new Date()
@@ -102,28 +119,40 @@ export class ViewProfileComponent implements OnInit{
     );
   }
   
-  claimReservation(reservationId: number) {
-    const userId = this.authService.user$.value.id!;
+  claimReservation(reservationId: number): void {
+  const userId = this.authService.user$.value.id!;
 
-    this.profileService.claimReservationForUser(userId, reservationId).subscribe(
-      (response) => {
-        console.log('Reservation claimed successfully:', response);
+  this.profileService.claimReservationForUser(userId, reservationId).subscribe(
+    (response) => {
+      console.log('Reservation claimed successfully:', response);
 
-        this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
-          this.reservations = reservations;
-          console.log('Updated Reservations:', this.reservations);
-        });
+      // Find the claimed reservation in this.reservations
+      const claimedReservation = this.reservations.find(r => r.id === reservationId);
+
+      if (claimedReservation) {
+        // Update the status to 'CLAIMED' in the original reservation
+        claimedReservation.status = 'CLAIMED';
+
+        // Add the claimed reservation to the second table
+        this.claimedReservations.push(claimedReservation);
+
+        console.log('Updated Reservations:', this.reservations);
+        console.log('Updated Claimed Reservations:', this.claimedReservations);
       }
-    );
-  }
+    }
+  );
+}
+
+  
+
   pendingStatus: boolean = false;
   canceledStatus: boolean = false;
   claimedStatus: boolean = false;
   expiredStatus: boolean = false;
-  
+
   getFilteredReservations() {
     const selectedStatuses: string[] = [];
-  
+
     if (this.pendingStatus) {
       selectedStatuses.push('PENDING');
     }
@@ -133,24 +162,27 @@ export class ViewProfileComponent implements OnInit{
     if (this.claimedStatus) {
       selectedStatuses.push('CLAIMED');
     }
-    if (this.expiredStatus) {
-      selectedStatuses.push('EXPIRED');
-    }
-  
+
     if (selectedStatuses.length > 0) {
       this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
         this.reservations = reservations.filter((reservation: Reservation) => {
           return selectedStatuses.includes(reservation.status);
         });
-        console.log('Filtered Reservations:', this.reservations);
+        console.log('Filtered Reservations (First Table):', this.reservations);
       });
     } else {
-      this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
-        this.reservations = reservations;
-        console.log('All Reservations:', this.reservations);
-      });
+      // Handle the case when no filters are selected
+      this.loadReservationsForFirstTable();
     }
   }
+
+  loadReservationsForFirstTable() {
+    this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
+      this.reservations = reservations;
+      console.log('All Reservations (First Table):', this.reservations);
+    });
+  }
+
   
   generateQRCode(data: string): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -175,8 +207,5 @@ export class ViewProfileComponent implements OnInit{
       }
     }
   }
-  
-  
-
   
 }
