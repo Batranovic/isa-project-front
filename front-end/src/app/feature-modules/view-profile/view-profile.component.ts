@@ -162,7 +162,7 @@ export class ViewProfileComponent implements OnInit{
 
   getFilteredReservations() {
     const selectedStatuses: string[] = [];
-
+  
     if (this.pendingStatus) {
       selectedStatuses.push('PENDING');
     }
@@ -172,19 +172,33 @@ export class ViewProfileComponent implements OnInit{
     if (this.claimedStatus) {
       selectedStatuses.push('CLAIMED');
     }
-
+  
     if (selectedStatuses.length > 0) {
       this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
         this.reservations = reservations.filter((reservation: Reservation) => {
-          return selectedStatuses.includes(reservation.status);
+          const isMatch = selectedStatuses.includes(reservation.status);
+  
+          if (isMatch) {
+            // Update QR code for the filtered reservation
+            this.updateQRCode(reservation);
+          }
+  
+          return isMatch;
         });
-        console.log('Filtered Reservations (First Table):', this.reservations);
+        console.log('Filtered Reservations:', this.reservations);
       });
     } else {
-      // Handle the case when no filters are selected
-      this.loadReservationsForFirstTable();
+      this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
+        this.reservations = reservations;
+  
+        // Update QR codes for all reservations
+        this.updateQRCodes();
+  
+        console.log('All Reservations:', this.reservations);
+      });
     }
   }
+  
 
   loadReservationsForFirstTable() {
     this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
