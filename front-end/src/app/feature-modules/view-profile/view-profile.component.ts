@@ -69,7 +69,19 @@ export class ViewProfileComponent implements OnInit{
       }
     });
   }
+
+  compareValues(a: any, b: any, column: string): number {
+    const valueA = column === 'price' ? a.appointment.price : a[column];
+    const valueB = column === 'price' ? b.appointment.price : b[column];
   
+    if (column === 'dateAndTime') {
+      return this.sortDirection === 'asc' ? new Date(valueA).getTime() - new Date(valueB).getTime() : new Date(valueB).getTime() - new Date(valueA).getTime();
+    } else if (column === 'duration' || column === 'price') {
+      return this.sortDirection === 'asc' ? parseFloat(valueA) - parseFloat(valueB) : parseFloat(valueB) - parseFloat(valueA);
+    } else {
+      return this.sortDirection === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+    }
+  }
   
 
   checkIfExpired(date:string){
@@ -85,7 +97,6 @@ export class ViewProfileComponent implements OnInit{
       return false
     }
   }
-  
 
   updateProfile(){
     this.profileService.updateProfile(this.myProfile).subscribe((profile:Profile)=>{
@@ -99,24 +110,33 @@ export class ViewProfileComponent implements OnInit{
     })
   }
 
-  cancelReservation(reservationId: number,reservation:any) {
+  cancelReservation(reservationId: number, reservation: any) {
     if (!this.checkIfExpired(reservation.appointment.dateAndTime)) {
-      alert("You can't cancel 24 hours before your reservation.")
-      return
+      alert("You can't cancel 24 hours before your reservation.");
+      return;
     }
     const userId = this.authService.user$.value.id!;
-
+  
     this.profileService.cancelReservationForUser(userId, reservationId).subscribe(
       (response) => {
-        this.checkPenalPoints()
+        this.checkPenalPoints();
         console.log('Reservation canceled successfully:', response);
-
-        this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
-          this.reservations = reservations;
-          console.log('Updated Reservations:', this.reservations);
-        });
+        const canceledReservationIndex = this.reservations.findIndex(r => r.id === reservationId);
+  
+        if (canceledReservationIndex !== -1) {
+          this.reservations[canceledReservationIndex].status = 'CANCELED';
+          this.updateQRCode(this.reservations[canceledReservationIndex]);
+        }
       }
     );
+  }
+  
+  updateQRCode(reservation: any) {
+    this.generateQRCode(reservation.qrCode).then((qrCodeUrl) => {
+      reservation.qrCode = qrCodeUrl;
+    }).catch((error) => {
+      console.error('Error updating QR code:', error);
+    });
   }
   
   claimReservation(reservationId: number): void {
@@ -125,25 +145,15 @@ export class ViewProfileComponent implements OnInit{
   this.profileService.claimReservationForUser(userId, reservationId).subscribe(
     (response) => {
       console.log('Reservation claimed successfully:', response);
-
-      // Find the claimed reservation in this.reservations
       const claimedReservation = this.reservations.find(r => r.id === reservationId);
 
       if (claimedReservation) {
-        // Update the status to 'CLAIMED' in the original reservation
         claimedReservation.status = 'CLAIMED';
-
-        // Add the claimed reservation to the second table
         this.claimedReservations.push(claimedReservation);
-
-        console.log('Updated Reservations:', this.reservations);
-        console.log('Updated Claimed Reservations:', this.claimedReservations);
       }
     }
   );
 }
-
-  
 
   pendingStatus: boolean = false;
   canceledStatus: boolean = false;
