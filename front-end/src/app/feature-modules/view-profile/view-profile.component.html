@@ -49,9 +49,6 @@
       <label>
         <input type="checkbox" [(ngModel)]="claimedStatus" (change)="getFilteredReservations()"> Claimed
       </label>
-      <label>
-        <input type="checkbox" [(ngModel)]="expiredStatus" (change)="getFilteredReservations()"> Expired
-      </label>
     </div>
     <table class="appointment-table">
       <thead>
@@ -60,6 +57,7 @@
           <th>Date and Time</th>
           <th>Duration</th>
           <th>Price</th>
+          <th>QR code</th>
           <th></th>
           <th></th>
         </tr>
@@ -70,6 +68,7 @@
           <td>{{ reservation.appointment.dateAndTime}}</td>
           <td>{{ reservation.appointment.duration }}</td>
           <td>{{ reservation.price }}</td>
+          <td>{{ reservation.qrCode}}</td>
           <td>
             <button class="cancelClaimButton" [attr.disabled]="(reservation.status == 'CANCELED') ? '' : null"
                     (click)="cancelReservation(reservation.id,reservation)">Cancel</button>
@@ -82,4 +81,28 @@
       </tbody>
     </table>
   </div>
-  
+  <div class="appointment-container">
+    <h2 class="company-title">History of claimed reservations</h2>
+    <table class="appointment-table2">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th (click)="sortTable('dateAndTime')">Date and Time <span *ngIf="sortColumn === 'dateAndTime'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
+          <th (click)="sortTable('duration')">Duration <span *ngIf="sortColumn === 'duration'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
+          <th (click)="sortTable('price')">Price <span *ngIf="sortColumn === 'price'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
+          <th>QR code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of reservations">
+          <td>{{ reservation.status.claimed }}</td>
+          <td>{{ reservation.appointment.dateAndTime }}</td>
+          <td>{{ reservation.appointment.duration }}</td>
+          <td>{{ reservation.price }}</td>
+          <td>{{ reservation.qrCode }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+    

@@ -17,13 +17,8 @@ export class ViewProfileComponent implements OnInit{
   userId : number | undefined;
   reservations: any[] = [];
   penalPoints: number = 0;
-  status: { pending: boolean, canceled: boolean, claimed: boolean } = {
-    pending: false,
-    canceled: false,
-    claimed: false,
-  };
-  sortColumn: string = 'dateAndTime, duration, price'; 
-  sortDirection: 'asc' | 'desc' = 'asc'; 
+  sortColumn: string = ''; 
+  sortDirection: string = 'asc';
   constructor(private profileService:ProfileService, private authService: AuthService){
   }
 
@@ -55,12 +50,13 @@ export class ViewProfileComponent implements OnInit{
 
   sortTable(column: string): void {
     if (this.sortColumn === column) {
+      // If the same column is clicked again, reverse the sort direction
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
-    this.sortColumn = column;
+      // If a new column is clicked, reset the sort direction to ascending
       this.sortDirection = 'asc';
+      this.sortColumn = column;
     }
-  
   }
 
   checkIfExpired(date:string){
