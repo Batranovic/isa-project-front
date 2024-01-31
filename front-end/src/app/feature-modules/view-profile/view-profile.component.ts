@@ -113,11 +113,26 @@ export class ViewProfileComponent implements OnInit{
       }
     );
   }
-
+  pendingStatus: boolean = false;
+  canceledStatus: boolean = false;
+  claimedStatus: boolean = false;
+  expiredStatus: boolean = false;
+  
   getFilteredReservations() {
-    const selectedStatuses = Object.entries(this.status)
-      .filter(([key, value]) => value)
-      .map(([key]) => key.toUpperCase()); 
+    const selectedStatuses: string[] = [];
+  
+    if (this.pendingStatus) {
+      selectedStatuses.push('PENDING');
+    }
+    if (this.canceledStatus) {
+      selectedStatuses.push('CANCELED');
+    }
+    if (this.claimedStatus) {
+      selectedStatuses.push('CLAIMED');
+    }
+    if (this.expiredStatus) {
+      selectedStatuses.push('EXPIRED');
+    }
   
     if (selectedStatuses.length > 0) {
       this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
@@ -133,5 +148,6 @@ export class ViewProfileComponent implements OnInit{
       });
     }
   }
+  
   
 }

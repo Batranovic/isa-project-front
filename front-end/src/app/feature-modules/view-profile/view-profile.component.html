@@ -41,16 +41,16 @@
     <h2 class="company-title">Your reservations</h2>
     <div>
       <label>
-        <input type="checkbox" [(ngModel)]="status" (change)="getFilteredReservations()"> Pending
+        <input type="checkbox" [(ngModel)]="pendingStatus" (change)="getFilteredReservations()"> Pending
       </label>
       <label>
-        <input type="checkbox" [(ngModel)]="status" (change)="getFilteredReservations()"> Canceled
+        <input type="checkbox" [(ngModel)]="canceledStatus" (change)="getFilteredReservations()"> Canceled
       </label>
       <label>
-        <input type="checkbox" [(ngModel)]="status" (change)="getFilteredReservations()"> Claimed
+        <input type="checkbox" [(ngModel)]="claimedStatus" (change)="getFilteredReservations()"> Claimed
       </label>
       <label>
-        <input type="checkbox" [(ngModel)]="status" (change)="getFilteredReservations()"> Expired
+        <input type="checkbox" [(ngModel)]="expiredStatus" (change)="getFilteredReservations()"> Expired
       </label>
     </div>
     <table class="appointment-table">
