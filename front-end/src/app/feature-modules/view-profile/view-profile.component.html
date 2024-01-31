@@ -39,6 +39,20 @@
 <h2 class="registration-title2">Penal points: {{ penalPoints }}</h2>
 <div class="appointment-container">
     <h2 class="company-title">Your reservations</h2>
+    <div>
+      <label>
+        <input type="checkbox" [(ngModel)]="status" (change)="getFilteredReservations()"> Pending
+      </label>
+      <label>
+        <input type="checkbox" [(ngModel)]="status" (change)="getFilteredReservations()"> Canceled
+      </label>
+      <label>
+        <input type="checkbox" [(ngModel)]="status" (change)="getFilteredReservations()"> Claimed
+      </label>
+      <label>
+        <input type="checkbox" [(ngModel)]="status" (change)="getFilteredReservations()"> Expired
+      </label>
+    </div>
     <table class="appointment-table">
       <thead>
         <tr>

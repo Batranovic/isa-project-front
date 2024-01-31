@@ -81,7 +81,7 @@
   .appointment-table {
     width: 60%; /* Adjust the width as needed */
     border-collapse: collapse;
-    margin: 0 auto; /* Center the table */
+    margin: 15px auto; /* Center the table */
   }
   
   .appointment-table th, .appointment-table td {
@@ -131,3 +131,4 @@
   cursor: default;
   transition: background-color 0.3s;
 }
+

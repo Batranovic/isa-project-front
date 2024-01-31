@@ -8,5 +8,8 @@ export interface Reservation {
 
 }
 export enum ReservationStatus {
-    PENDING = 0, CANCELED = 1, CLAIMED = 2, EXPIRED = 3
+    PENDING = 'PENDING',
+    CANCELED = 'CANCELED',
+    CLAIMED = 'CLAIMED',
+    EXPIRED = 'EXPIRED'
   }

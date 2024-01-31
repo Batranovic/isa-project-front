@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Profile } from 'src/app/infrastructure/model/profile.model';
 import { ProfileService } from 'src/app/infrastructure/service/profile.service';
 import { Appointment } from '../company/model/appointment.model';
-import { Reservation } from '../company/model/reservation.model';
+import { Reservation, ReservationStatus } from '../company/model/reservation.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -17,6 +17,12 @@ export class ViewProfileComponent implements OnInit{
   userId : number | undefined;
   reservations: any[] = [];
   penalPoints: number = 0;
+  status: { pending: boolean, canceled: boolean, claimed: boolean, expired: boolean } = {
+    pending: false,
+    canceled: false,
+    claimed: false,
+    expired: false
+  };
   constructor(private profileService:ProfileService, private authService: AuthService){
   }
 
@@ -108,6 +114,24 @@ export class ViewProfileComponent implements OnInit{
     );
   }
 
-
-
+  getFilteredReservations() {
+    const selectedStatuses = Object.entries(this.status)
+      .filter(([key, value]) => value)
+      .map(([key]) => key.toUpperCase()); 
+  
+    if (selectedStatuses.length > 0) {
+      this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
+        this.reservations = reservations.filter((reservation: Reservation) => {
+          return selectedStatuses.includes(reservation.status);
+        });
+        console.log('Filtered Reservations:', this.reservations);
+      });
+    } else {
+      this.profileService.getReservationsForUser(this.userId as number).subscribe(reservations => {
+        this.reservations = reservations;
+        console.log('All Reservations:', this.reservations);
+      });
+    }
+  }
+  
 }
