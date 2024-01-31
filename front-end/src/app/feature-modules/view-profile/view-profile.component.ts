@@ -17,12 +17,13 @@ export class ViewProfileComponent implements OnInit{
   userId : number | undefined;
   reservations: any[] = [];
   penalPoints: number = 0;
-  status: { pending: boolean, canceled: boolean, claimed: boolean, expired: boolean } = {
+  status: { pending: boolean, canceled: boolean, claimed: boolean } = {
     pending: false,
     canceled: false,
     claimed: false,
-    expired: false
   };
+  sortColumn: string = 'dateAndTime, duration, price'; 
+  sortDirection: 'asc' | 'desc' = 'asc'; 
   constructor(private profileService:ProfileService, private authService: AuthService){
   }
 
@@ -47,9 +48,19 @@ export class ViewProfileComponent implements OnInit{
               this.reservations[i].appointment.dateAndTime = dt.toLocaleString('en-GB')
             }
           });
-        });
+        })
       }
     });
+  }
+
+  sortTable(column: string): void {
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+    this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+  
   }
 
   checkIfExpired(date:string){
@@ -129,9 +140,6 @@ export class ViewProfileComponent implements OnInit{
     }
     if (this.claimedStatus) {
       selectedStatuses.push('CLAIMED');
-    }
-    if (this.expiredStatus) {
-      selectedStatuses.push('EXPIRED');
     }
   
     if (selectedStatuses.length > 0) {
