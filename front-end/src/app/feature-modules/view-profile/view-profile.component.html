@@ -59,6 +59,7 @@
           <th>Status</th>
           <th>Date and Time</th>
           <th>Duration</th>
+          <th>Price</th>
           <th></th>
           <th></th>
         </tr>
@@ -68,6 +69,7 @@
           <td>{{ reservation.status }}</td>
           <td>{{ reservation.appointment.dateAndTime}}</td>
           <td>{{ reservation.appointment.duration }}</td>
+          <td>{{ reservation.price }}</td>
           <td>
             <button class="cancelClaimButton" [attr.disabled]="(reservation.status == 'CANCELED') ? '' : null"
                     (click)="cancelReservation(reservation.id,reservation)">Cancel</button>

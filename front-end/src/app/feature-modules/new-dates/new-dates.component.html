@@ -26,7 +26,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let appointment of appointments">
-                <td class="dateAndTime">{{ appointment.dateAndTime[2]+'.'+appointment.dateAndTime[1]+'.'+appointment.dateAndTime[0]+' '+appointment.dateAndTime[3]+':'+appointment.dateAndTime[4]+'0' }}</td>
+                <td class="dateAndTime">{{ appointment.dateAndTime }}</td>
                 <td>{{ appointment.duration }}</td>
                 <td>{{ appointment.status }}</td> 
                 <button 

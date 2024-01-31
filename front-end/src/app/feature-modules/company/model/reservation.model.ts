@@ -4,7 +4,8 @@ import { Appointment } from "./appointment.model";
 export interface Reservation {
     id: number,
     status: ReservationStatus,
-    appointment: Appointment
+    appointment: Appointment,
+    price: number
 
 }
 export enum ReservationStatus {
