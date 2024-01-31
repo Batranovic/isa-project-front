@@ -5,6 +5,7 @@ import { ProfileService } from 'src/app/infrastructure/service/profile.service';
 import { Appointment } from '../company/model/appointment.model';
 import { Reservation, ReservationStatus } from '../company/model/reservation.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as QRCode from 'qrcode';
 
 @Component({
   selector: 'app-view-profile',
@@ -12,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./view-profile.component.css']
 })
 export class ViewProfileComponent implements OnInit{
-
+  qrCodeImageUrl: string = '';
   public myProfile!: Profile;
   userId : number | undefined;
   reservations: any[] = [];
@@ -40,8 +41,10 @@ export class ViewProfileComponent implements OnInit{
             this.reservations = reservations;
             for (let i = 0; i < this.reservations.length; i++) {
               let dt = new Date(this.reservations[i].appointment.dateAndTime);
-              this.reservations[i].appointment.dateAndTime = dt.toLocaleString('en-GB')
+              this.reservations[i].appointment.dateAndTime = dt.toLocaleString('en-GB');
+              this.updateQRCodes();
             }
+            
           });
         })
       }
@@ -153,5 +156,31 @@ export class ViewProfileComponent implements OnInit{
     }
   }
   
+  generateQRCode(data: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      QRCode.toDataURL(data, (err, url) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(url);
+        }
+      });
+    });
+  }
+  
+  async updateQRCodes() {
+    for (const reservation of this.reservations) {
+      try {
+        
+        const qrData = reservation.qrCode;
+        reservation.qrCode = await this.generateQRCode(qrData);
+      } catch (error) {
+        console.error('Error generating QR code:', error);
+      }
+    }
+  }
+  
+  
+
   
 }
