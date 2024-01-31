@@ -16,6 +16,7 @@
       <h2 class="company-title">{{ equipment.name }}</h2>
       <p class="equipment-type">{{ equipment.equipmentType }}</p>
       <p class="equipment-description">{{ equipment.description }}</p>
+      <p class="equipment-type">Price: {{ equipment.price }}</p>
       <p class="equipment-quantity">
         Quantity: {{ equipment.quantity - equipment.reservedQuantity === 0 ? 'Out of stock' : equipment.quantity - equipment.reservedQuantity }}
       </p>
@@ -38,7 +39,8 @@
             <td>{{ appointment.dateAndTime }}</td>
             <td>{{ appointment.duration }}</td>
             <td>{{ appointment.status }}</td> 
-            <td><button class="reserve-button" (click)="reserveEquipment(appointment)">Reserve</button></td>                  
+            <td><button *ngIf="penalPoints < 3" class="reserve-button" (click)="reserveEquipment(appointment)">Reserve</button>
+            <h5 *ngIf="penalPoints >= 3" >You have too many penal points</h5></td>                  
         </tr>
       </tbody>
     </table>

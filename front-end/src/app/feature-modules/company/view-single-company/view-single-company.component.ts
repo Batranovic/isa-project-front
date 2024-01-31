@@ -7,6 +7,7 @@ import { Appointment, AppointmentStatus } from '../model/appointment.model';
 import { DatePipe } from '@angular/common';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/model/user.model';
+import { ProfileService } from 'src/app/infrastructure/service/profile.service';
 interface TemporaryQuantities {
   [equipmentId: number]: number;
 }
@@ -23,9 +24,10 @@ export class ViewSingleCompanyComponent implements OnInit {
   appointments: any[] = [];
   selectedEquipmentIds: number[] = [];
   user: User | undefined;
+  penalPoints:number = 0;
   temporaryQuantities: TemporaryQuantities = {};
 
-  constructor(private route: ActivatedRoute, private companyService: CompanyService, private authService: AuthService, private router: Router) {}
+  constructor(private route: ActivatedRoute,private profileService: ProfileService, private companyService: CompanyService, private authService: AuthService, private router: Router) {}
  
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -39,6 +41,9 @@ export class ViewSingleCompanyComponent implements OnInit {
       });
       this.authService.user$.subscribe(user => {
         this.user = user;
+        this.profileService.getRegisteredUser(this.user.id!).subscribe((data:any)=>{
+          this.penalPoints = data.penalPoints
+        })
       });
     });
   } 
@@ -59,6 +64,11 @@ export class ViewSingleCompanyComponent implements OnInit {
     this.companyService.getAppointmentsForCompany(companyId).subscribe(
       (appointments) => {
         this.appointments  = appointments;
+        for (let i = 0; i < this.appointments.length; i++) {
+          let appointment = this.appointments[i];
+          let dt = new Date(appointment.dateAndTime);
+          appointment.dateAndTime = dt.toLocaleString('en-GB')
+        }
         console.log('Appointments:', this.appointments);
       },
       (error) => {

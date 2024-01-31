@@ -4,9 +4,14 @@ import { Appointment } from "./appointment.model";
 export interface Reservation {
     id: number,
     status: ReservationStatus,
-    appointment: Appointment
+    appointment: Appointment,
+    price: number,
+    qrCode: string
 
 }
 export enum ReservationStatus {
-    PENDING = 0, CANCELED = 1, CLAIMED = 2, EXPIRED = 3
+    PENDING = 'PENDING',
+    CANCELED = 'CANCELED',
+    CLAIMED = 'CLAIMED',
+    EXPIRED = 'EXPIRED'
   }

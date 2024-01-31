@@ -5,5 +5,6 @@ export interface Equipment {
     description: string,
     quantity: number,
     reservedQuantity: number,
-    isAdded?: boolean;
+    isAdded?: boolean,
+    price: number
 }

@@ -36,16 +36,33 @@
         <button (click)="updateProfile()" class="register-button">Update profile</button>
     </div>
 </div>
-
+<h2 class="registration-title2">Penal points: {{ penalPoints }}</h2>
 <div class="appointment-container">
     <h2 class="company-title">Your reservations</h2>
+    <div>
+      <label>
+        <input type="checkbox" [(ngModel)]="pendingStatus" (change)="getFilteredReservations()"> Pending
+      </label>
+      <label>
+        <input type="checkbox" [(ngModel)]="canceledStatus" (change)="getFilteredReservations()"> Canceled
+      </label>
+      <label>
+        <input type="checkbox" [(ngModel)]="claimedStatus" (change)="getFilteredReservations()"> Claimed
+      </label>
+      <label>
+        <input type="checkbox" [(ngModel)]="expiredStatus" (change)="getFilteredReservations()"> Expired
+      </label>
+    </div>
     <table class="appointment-table">
       <thead>
         <tr>
           <th>Status</th>
           <th>Date and Time</th>
           <th>Duration</th>
+          <th>Price</th>
           <th></th>
+          <th></th>
+          <th>QR</th>
         </tr>
       </thead>
       <tbody>
@@ -53,7 +70,18 @@
           <td>{{ reservation.status }}</td>
           <td>{{ reservation.appointment.dateAndTime}}</td>
           <td>{{ reservation.appointment.duration }}</td>
-          <td><button class="cancel-button" *ngIf="reservation.status !== 'CANCELED'" (click)="cancelReservation(reservation.id)">Cancel</button></td>
+          <td>{{ reservation.price }}</td>
+          <td>
+            <button class="cancelClaimButton" [attr.disabled]="(reservation.status == 'CANCELED') ? '' : null"
+                    (click)="cancelReservation(reservation.id,reservation)">Cancel</button>
+          </td>
+          <td>
+            <button class="cancelClaimButton"  [attr.disabled]="(reservation.status == 'CLAIMED') || (reservation.status == 'CANCELED') ? true : null"
+                    (click)="claimReservation(reservation.id)">Claim</button>
+          </td>
+          <td>
+            <img [src]="reservation.qrCode" alt="QR Code" style="max-width: 40%; max-height: 40%;">
+          </td>
         </tr>
       </tbody>
     </table>
