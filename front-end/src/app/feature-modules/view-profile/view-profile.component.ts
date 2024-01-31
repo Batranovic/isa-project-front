@@ -62,9 +62,7 @@ export class ViewProfileComponent implements OnInit{
   
       if (column === 'dateAndTime') {
         return this.sortDirection === 'asc' ? new Date(valueA).getTime() - new Date(valueB).getTime() : new Date(valueB).getTime() - new Date(valueA).getTime();
-      } else if (column === 'duration') {
-        return this.sortDirection === 'asc' ? parseFloat(valueA) - parseFloat(valueB) : parseFloat(valueB) - parseFloat(valueA);
-      } else if (column === 'price') {
+      } else if (column === 'duration' || column === 'price') {
         return this.sortDirection === 'asc' ? parseFloat(valueA) - parseFloat(valueB) : parseFloat(valueB) - parseFloat(valueA);
       } else {
         return this.sortDirection === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
