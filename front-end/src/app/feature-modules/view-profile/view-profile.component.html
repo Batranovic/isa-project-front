@@ -62,6 +62,7 @@
           <th>Price</th>
           <th></th>
           <th></th>
+          <th>QR</th>
         </tr>
       </thead>
       <tbody>
@@ -77,6 +78,9 @@
           <td>
             <button class="cancelClaimButton"  [attr.disabled]="(reservation.status == 'CLAIMED') || (reservation.status == 'CANCELED') ? true : null"
                     (click)="claimReservation(reservation.id)">Claim</button>
+          </td>
+          <td>
+            <img [src]="reservation.qrCode" alt="QR Code">
           </td>
         </tr>
       </tbody>

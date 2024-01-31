@@ -5,7 +5,8 @@ export interface Reservation {
     id: number,
     status: ReservationStatus,
     appointment: Appointment,
-    price: number
+    price: number,
+    qrCode: string
 
 }
 export enum ReservationStatus {
